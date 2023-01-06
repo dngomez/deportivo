@@ -1,34 +1,148 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
+import { useState, useRef } from 'react'
+import { formatDate } from '@fullcalendar/core'
+import FullCalendar from '@fullcalendar/react'
+import dayGridPlugin from '@fullcalendar/daygrid'
+import timeGridPlugin from '@fullcalendar/timegrid'
+import interactionPlugin from '@fullcalendar/interaction'
+import esLocale from '@fullcalendar/core/locales/es'
+import { INITIAL_EVENTS, createEventId } from './event-utils'
 
-function App() {
-  const [count, setCount] = useState(0)
+
+export default function DemoApp() {
+  const [weekendsVisible, setWeekendsVisible] = useState(true)
+  const [currentEvents, setCurrentEvents] = useState([])
+  const [locale, setLocale] = useState("en")
+  const fullcalendar = useRef(null)
+
+  let sidebarEvents = []
+  currentEvents.map((event) => {
+    sidebarEvents.push(
+      <li key={event.id}>
+        <b>{formatDate(event.start, {year: 'numeric', month: 'short', day: 'numeric'})}</b>
+        <span>{event.title}</span>
+        <span>{event.extendedProps.name}</span>
+      </li>
+    )
+  })
+
+  let sidebar = (
+    <div className='demo-app-sidebar'>
+      <div className='demo-app-sidebar-section'>
+        <h2>Instructions</h2>
+        <ul>
+          <li>Select dates and you will be prompted to create a new event</li>
+          <li>Drag, drop, and resize events</li>
+          <li>Click an event to delete it</li>
+        </ul>
+      </div>
+      <div className='demo-app-sidebar-section'>
+        <label>
+          <input
+            type='checkbox'
+            checked={weekendsVisible}
+            onChange={() => setWeekendsVisible(!weekendsVisible)}
+          ></input>
+          toggle weekends
+        </label>
+      </div>
+      <div>
+        <button onClick={() => setLocale("es")}>Spanish</button>
+        <button onClick={() => setLocale("en")}>English</button>
+      </div>
+      <div className='demo-app-sidebar-section'>
+        <h2>All Events ({currentEvents.length})</h2>
+        <ul>
+          {sidebarEvents}
+        </ul>
+      </div>
+    </div>
+  )
+
+  function handleDateSelect(selectInfo) {
+    if (fullcalendar.current.getApi().view.type === "dayGridMonth") {
+      fullcalendar.current.getApi().changeView("timeGridWeek", selectInfo.start)
+      return
+    }
+
+    let title = prompt('Please enter a new title for your event')
+    if (!Boolean(title)) return
+    let name = prompt('What is your name?')
+    if (!Boolean(name)) return
+
+    let calendarApi = selectInfo.view.calendar
+
+    calendarApi.unselect() // clear date selection
+
+    if (title) {
+      calendarApi.addEvent({
+        id: createEventId(),
+        title: title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        name: name,
+        allDay: selectInfo.allDay
+      })
+    }
+  }
+
+  function handleEventClick(clickInfo) {
+    console.log(clickInfo)
+    if (confirm(`Are you sure you want to delete the event ${clickInfo.event.title} created by ${clickInfo.event.extendedProps.name}`)) {
+      clickInfo.event.remove()
+    }
+  }
+
+  function renderEventContent(eventInfo) {
+    return (
+      <>
+        <b>{eventInfo.timeText}</b>
+        <i>{eventInfo.event.title}</i>
+      </>
+    )
+  }
+
+  function viewChange(event) {
+    if (event.view.type === "dayGridMonth") setWeekendsVisible(true)
+    else if (event.view.type === "timeGridWeek") setWeekendsVisible(false)
+  }
 
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className='demo-app'>
+      {sidebar}
+      <div className='demo-app-main' style={{height: "600px"}}>
+        <FullCalendar
+          ref={fullcalendar}
+          height={"100%"}
+          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+          headerToolbar={{
+            left: 'prevYear,prev,next,nextYear today',
+            center: 'title',
+            right: 'dayGridMonth,timeGridWeek'
+          }}
+          locales={[ esLocale ]}
+          viewDidMount={viewChange}
+          locale={locale}
+          initialView='dayGridMonth'
+          firstDay={1}
+          editable={true}
+          selectable={true}
+          selectMirror={true}
+          dayMaxEvents={true}
+          slotMinTime={"08:00:00"}
+          slotMaxTime={"23:59:59"}
+          weekends={weekendsVisible}
+          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+          select={handleDateSelect}
+          eventContent={renderEventContent} // custom render function
+          eventClick={handleEventClick}
+          eventsSet={setCurrentEvents} // called after events are initialized/added/changed/removed
+          /* you can update a remote database when these fire:
+          eventAdd={function(){}}
+          eventChange={function(){}}
+          eventRemove={function(){}}
+          */
+        />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </div>
   )
 }
-
-export default App
