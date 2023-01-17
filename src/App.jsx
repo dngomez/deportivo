@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react'
+import { useState, useRef, useContext } from 'react'
 import { formatDate } from '@fullcalendar/core'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -6,16 +6,18 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import esLocale from '@fullcalendar/core/locales/es'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
+import { ThemeContext } from './components/Theme/ThemeProvider'
 
 
 export default function DemoApp() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
   const [currentEvents, setCurrentEvents] = useState([])
-  const [locale, setLocale] = useState("en")
   const fullcalendar = useRef(null)
+  const { theme, setTheme, language, setLanguate } = useContext(ThemeContext)
 
   let sidebarEvents = []
   currentEvents.map((event) => {
+    console.log(event)
     sidebarEvents.push(
       <li key={event.id}>
         <b>{formatDate(event.start, {year: 'numeric', month: 'short', day: 'numeric'})}</b>
@@ -27,28 +29,6 @@ export default function DemoApp() {
 
   let sidebar = (
     <div className='demo-app-sidebar'>
-      <div className='demo-app-sidebar-section'>
-        <h2>Instructions</h2>
-        <ul>
-          <li>Select dates and you will be prompted to create a new event</li>
-          <li>Drag, drop, and resize events</li>
-          <li>Click an event to delete it</li>
-        </ul>
-      </div>
-      <div className='demo-app-sidebar-section'>
-        <label>
-          <input
-            type='checkbox'
-            checked={weekendsVisible}
-            onChange={() => setWeekendsVisible(!weekendsVisible)}
-          ></input>
-          toggle weekends
-        </label>
-      </div>
-      <div>
-        <button onClick={() => setLocale("es")}>Spanish</button>
-        <button onClick={() => setLocale("en")}>English</button>
-      </div>
       <div className='demo-app-sidebar-section'>
         <h2>All Events ({currentEvents.length})</h2>
         <ul>
@@ -121,7 +101,7 @@ export default function DemoApp() {
           }}
           locales={[ esLocale ]}
           viewDidMount={viewChange}
-          locale={locale}
+          locale={language}
           initialView='dayGridMonth'
           firstDay={1}
           editable={true}
