@@ -41,14 +41,12 @@ export default function Navbar() {
   return (
     <nav className="navbar">
       <div className="left">
-        <Link to="/ main-title">
-          <button className="p-button-text nav-btn main-title" >
-            <span>Club</span>
-            <span>Deportivo</span>
-            <span>y</span>
-            <span>Cultural</span>
-            <span>AURA</span>
-          </button>
+        <Link to="/" className="navbar-link main-title">
+          <span>Club</span>
+          <span>Deportivo</span>
+          <span>y</span>
+          <span>Cultural</span>
+          <span>AURA</span>
         </Link>
       </div>
       <div className="right">

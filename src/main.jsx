@@ -7,7 +7,7 @@ import {
 } from 'react-router-dom'
 import ThemeProvider from './components/Theme/ThemeProvider'
 import AuthProvider from './components/Auth/AuthProvider'
-import DemoApp from './App'
+import Calendar from './components/Calendar/Calendar'
 import Layout from './components/Layout'
 import Home from './components/Home'
 import Login from './components/Login'
@@ -23,7 +23,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="calendar" element={<DemoApp />} />
+              <Route path="calendar" element={<Calendar />} />
               <Route path="link1" element={null} />
               <Route path="link2" element={null} />
               <Route path="link3" element={null} />

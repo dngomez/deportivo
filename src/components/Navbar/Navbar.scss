@@ -4,11 +4,10 @@
   justify-content: space-between;
   font-family: var(--font-family);
   border-color: var(--);
-  position: fixed;
   top: 0;
   left: 0;
-  height: 26px;
-  width: 100vw;
+  width: 100%;
+  background-color: var(--navbar-bg-color);
 
   .nav-btn {
     padding-top: 0;
@@ -26,10 +25,19 @@
   .left {
     text-align: left;
     width: 33%;
+    
+    .navbar-link {
+      position: relative;
+      display: inline-block;
+      padding: 8px 12px;
+    }
 
-    >.site {
-      margin-left: 20px;
-      color: var(--primary-color-text);
+    a {
+      color: var(--text-color);
+      text-decoration: none;
+      display: inline-block;
+      background-color: transparent;
+      border: inherit;
     }
   }
 
@@ -45,6 +53,7 @@
 
     .active {
       background-color: var(--bg-color-active);
+      color: var(--accent);
     }
 
     .underline {

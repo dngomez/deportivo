@@ -5,11 +5,12 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import esLocale from '@fullcalendar/core/locales/es'
-import { INITIAL_EVENTS, createEventId } from './event-utils'
-import { ThemeContext } from './components/Theme/ThemeProvider'
+import { INITIAL_EVENTS, createEventId } from '../../event-utils'
+import { ThemeContext } from '../Theme/ThemeProvider'
+import "./Calendar.scss"
 
 
-export default function DemoApp() {
+export default function Calendar() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
   const [currentEvents, setCurrentEvents] = useState([])
   const fullcalendar = useRef(null)
@@ -87,42 +88,40 @@ export default function DemoApp() {
   }
 
   return (
-    <div className='demo-app'>
-      {sidebar}
-      <div className='demo-app-main' style={{height: "600px"}}>
-        <FullCalendar
-          ref={fullcalendar}
-          height={"100%"}
-          plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
-          headerToolbar={{
-            left: 'prevYear,prev,next,nextYear today',
-            center: 'title',
-            right: 'dayGridMonth,timeGridWeek'
-          }}
-          locales={[ esLocale ]}
-          viewDidMount={viewChange}
-          locale={language}
-          initialView='dayGridMonth'
-          firstDay={1}
-          editable={true}
-          selectable={true}
-          selectMirror={true}
-          dayMaxEvents={true}
-          slotMinTime={"08:00:00"}
-          slotMaxTime={"23:59:59"}
-          weekends={weekendsVisible}
-          initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
-          select={handleDateSelect}
-          eventContent={renderEventContent} // custom render function
-          eventClick={handleEventClick}
-          eventsSet={setCurrentEvents} // called after events are initialized/added/changed/removed
-          /* you can update a remote database when these fire:
-          eventAdd={function(){}}
-          eventChange={function(){}}
-          eventRemove={function(){}}
-          */
-        />
-      </div>
+    <div className='calendar'>
+      {/* {sidebar} */}
+      <FullCalendar
+        ref={fullcalendar}
+        height={"100%"}
+        plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
+        headerToolbar={{
+          left: 'prevYear,prev,next,nextYear today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek'
+        }}
+        locales={[ esLocale ]}
+        viewDidMount={viewChange}
+        locale={language}
+        initialView='dayGridMonth'
+        firstDay={1}
+        editable={true}
+        selectable={true}
+        selectMirror={true}
+        dayMaxEvents={true}
+        slotMinTime={"08:00:00"}
+        slotMaxTime={"23:59:59"}
+        weekends={weekendsVisible}
+        initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+        select={handleDateSelect}
+        eventContent={renderEventContent} // custom render function
+        eventClick={handleEventClick}
+        eventsSet={setCurrentEvents} // called after events are initialized/added/changed/removed
+        /* you can update a remote database when these fire:
+        eventAdd={function(){}}
+        eventChange={function(){}}
+        eventRemove={function(){}}
+        */
+      />
     </div>
   )
 }

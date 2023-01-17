@@ -4,11 +4,11 @@ import Navbar from './Navbar/Navbar'
 
 export default function Layout() {
   return (
-    <div className="layout">
+    <>
       <Navbar />
-      <div className="body">
+      <div className="main">
         <Outlet />
       </div>
-    </div>
+    </>
   )
 }
