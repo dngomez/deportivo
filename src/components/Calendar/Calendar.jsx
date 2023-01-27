@@ -7,14 +7,23 @@ import interactionPlugin from '@fullcalendar/interaction'
 import esLocale from '@fullcalendar/core/locales/es'
 import { INITIAL_EVENTS, createEventId } from '../../event-utils'
 import { ThemeContext } from '../Theme/ThemeProvider'
+import Modal from '../Modal/Modal'
+import NewEvent from './NewEvent'
 import "./Calendar.scss"
 
 
 export default function Calendar() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
   const [currentEvents, setCurrentEvents] = useState([])
+  const [isOpen, setIsOpen] = useState(false)
+  const [temporalInfo, setTemporalInfo] = useState({})
   const fullcalendar = useRef(null)
-  const { theme, setTheme, language, setLanguate } = useContext(ThemeContext)
+  const { language } = useContext(ThemeContext)
+
+  const modalVariants = {
+    show: { rotate: [0, 270, 0], scale: [0, 1.2, 1], borderRadius: ["100%", "0%", "5px"]},
+    hide: { rotate: [0, 270, 0], scale: [1, 1.2, 0], borderRadius: ["5px", "0%", "100%"]}
+  }
 
   let sidebarEvents = []
   currentEvents.map((event) => {
@@ -28,42 +37,53 @@ export default function Calendar() {
     )
   })
 
-  let sidebar = (
-    <div className='demo-app-sidebar'>
-      <div className='demo-app-sidebar-section'>
-        <h2>All Events ({currentEvents.length})</h2>
-        <ul>
-          {sidebarEvents}
-        </ul>
-      </div>
-    </div>
-  )
-
   function handleDateSelect(selectInfo) {
     if (fullcalendar.current.getApi().view.type === "dayGridMonth") {
       fullcalendar.current.getApi().changeView("timeGridWeek", selectInfo.start)
       return
     }
 
-    let title = prompt('Please enter a new title for your event')
-    if (!Boolean(title)) return
-    let name = prompt('What is your name?')
-    if (!Boolean(name)) return
+    setTemporalInfo(selectInfo)
 
-    let calendarApi = selectInfo.view.calendar
+    setIsOpen(true)
+    // let title = prompt('Please enter a new title for your event')
+    // if (!Boolean(title)) return
+    // let name = prompt('What is your name?')
+    // if (!Boolean(name)) return
 
-    calendarApi.unselect() // clear date selection
+    // let calendarApi = selectInfo.view.calendar
 
-    if (title) {
-      calendarApi.addEvent({
-        id: createEventId(),
-        title: title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        name: name,
-        allDay: selectInfo.allDay
-      })
-    }
+    // calendarApi.unselect() // clear date selection
+
+    // if (title) {
+    //   calendarApi.addEvent({
+    //     id: createEventId(),
+    //     title: title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     name: name,
+    //     allDay: selectInfo.allDay
+    //   })
+    // }
+  }
+
+  function addEvent(info) {
+    let calendarApi = info.view.calendar
+    calendarApi.unselect()
+
+    calendarApi.addEvent({
+      id: createEventId(),
+      title: info.title,
+      start: info.startStr,
+      end: info.endStr,
+      name: info.name,
+      allDay: false,
+      extendedProps: {
+        others: info.others
+      }
+    })
+
+    setIsOpen(false)
   }
 
   function handleEventClick(clickInfo) {
@@ -89,7 +109,6 @@ export default function Calendar() {
 
   return (
     <div className='calendar'>
-      {/* {sidebar} */}
       <FullCalendar
         ref={fullcalendar}
         height={"100%"}
@@ -100,6 +119,7 @@ export default function Calendar() {
           right: 'dayGridMonth,timeGridWeek'
         }}
         locales={[ esLocale ]}
+        allDaySlot={true}
         viewDidMount={viewChange}
         locale={language}
         initialView='dayGridMonth'
@@ -122,6 +142,10 @@ export default function Calendar() {
         eventRemove={function(){}}
         */
       />
+      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+        <h2 className="title">Reservar horario</h2>
+        <NewEvent temporalInfo={temporalInfo} addEvent={addEvent}/>
+      </Modal>
     </div>
   )
 }
