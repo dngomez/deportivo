@@ -3,6 +3,7 @@ import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../Theme/ThemeProvider'
 import { motion } from 'framer-motion'
 import Logo from '../Logo/Logo'
+import Settings from './Settings/Settings'
 import './Navbar.scss'
 
 export default function Navbar() {
@@ -24,9 +25,7 @@ export default function Navbar() {
     { name: "Calendario", to: "/calendar", icon: "calendar_month" },
     { name: "Link1", to: "/link1", icon: "face" },
     { name: "Link2", to: "/link2", icon: "face" },
-    { name: "Link3", to: "/link3", icon: "face" },
-    { name: "Link4", to: "/link4", icon: "face" },
-    { name: "Link5", to: "/link5", icon: "face" }
+    { name: "Link3", to: "/link3", icon: "face" }
   ]
 
   for (let i=0; i<links.length; i++) {
@@ -77,6 +76,7 @@ export default function Navbar() {
       </div>
       <div className="right">
         {navLinks}
+        <Settings />
       </div>
     </nav>
   );

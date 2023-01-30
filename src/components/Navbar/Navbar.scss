@@ -44,6 +44,53 @@
     text-align: right;
     width: 61%;
 
+    > .settings {
+      color: var(--text-color-faded);
+      padding: 0 5px;
+      margin-top: 10px;
+      transition: color 0.3s;
+      float: right;
+      position: relative;
+      cursor: pointer;
+      &:hover {
+        color: var(--accent);
+      }
+
+      > ul {
+        position: absolute;
+        list-style: none;
+        right: 0;
+        padding: 0;
+        clip-path: none !important;
+
+        > li {
+          display: block;
+          margin-bottom: 5px;
+          padding: 5px 10px;
+          border: 1px solid var(--accent-faded);
+          border-color: var(--accent-faded);
+          color: var(--text-color);
+          border-radius: 5px;
+          width: 120px;
+          text-align: center;
+          background: linear-gradient(transparent, var(--accent-faded));
+          transition: color 0.5s, border-color 0.5s;
+          cursor: pointer;
+          &:hover {
+            color: var(--accent);
+            border-color: var(--accent);
+          }
+
+          > .dropdown-icon {
+            line-height: 0;
+            vertical-align: middle;
+            font-size: 1.1rem;
+            margin-right: 5px;
+          }
+        }
+      }
+    }
+
     > a {
       display: inline-block;
       height: 40px;
