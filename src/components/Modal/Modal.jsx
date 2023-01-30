@@ -22,11 +22,6 @@ export default function Modal({ isOpen, setIsOpen, children }) {
           <div className="body">
             { children }
           </div>
-          <div className="footer">
-            <button className="button dismiss" onClick={() => setIsOpen(false)}>
-              Cancelar
-            </button>
-          </div>
         </motion.div>
       </div>
     }

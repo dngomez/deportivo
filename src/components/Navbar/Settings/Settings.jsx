@@ -17,11 +17,15 @@ export default function Settings() {
 
   return (
     <div className="link-text settings">
-      <span onClick={() => setIsOpen(!isOpen)} className="material-icons link-icon">{isOpen ? "close" : "settings"}</span>
+      <span
+        onClick={() => setIsOpen(!isOpen)}
+        className="material-icons link-icon">
+          {isOpen ? "close" : "settings"}
+      </span>
       <motion.ul
+        key={"dropdown"}
         variants={{
           open: {
-            clipPath: "inset(0% 0% 0% 0% round 10px)",
             transition: {
               type: "spring",
               bounce: 0,
@@ -31,11 +35,12 @@ export default function Settings() {
             }
           },
           closed: {
-            clipPath: "inset(10% 50% 90% 50% round 10px)",
+            opacity: 0,
             transition: {
               type: "spring",
               bounce: 0,
-              duration: 0.3
+              duration: 0.3,
+              delay: 0.1
             }
           }
         }}
@@ -43,16 +48,16 @@ export default function Settings() {
         style={{ pointerEvents: isOpen ? "auto" : "none" }}
       >
         <motion.li
-          variants={itemVariants} animate={isOpen ? "open" : "closed"}
+          variants={itemVariants}
           onClick={() => theme.toggleTheme()}
         >
           <span className="material-icons dropdown-icon">{(theme.theme === "dark") ? "light_mode" : "dark_mode"}</span>
           {(theme.theme === "dark") ? "Modo claro" : "Modo oscuro"}
         </motion.li>
-        <motion.li variants={itemVariants} animate={isOpen ? "open" : "closed"}>Item 2</motion.li>
-        <motion.li variants={itemVariants} animate={isOpen ? "open" : "closed"}>Item 3</motion.li>
-        <motion.li variants={itemVariants} animate={isOpen ? "open" : "closed"}>Item 4</motion.li>
-        <motion.li variants={itemVariants} animate={isOpen ? "open" : "closed"}>Item 5</motion.li>
+        {/* <motion.li variants={itemVariants}>Item 2</motion.li>
+        <motion.li variants={itemVariants}>Item 3</motion.li>
+        <motion.li variants={itemVariants}>Item 4</motion.li>
+        <motion.li variants={itemVariants}>Item 5</motion.li> */}
       </motion.ul>
     </div>
   )

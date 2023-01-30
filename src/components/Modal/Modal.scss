@@ -6,12 +6,11 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.5);
-  overflow: hidden;
+  overflow-y: auto;
 
   > .content {
     position: absolute;
     left: 15%;
-    // height: 50%;
     width: 70%;
     z-index: 100;
     border: 1px solid var(--navbar-bg-color);
@@ -21,6 +20,10 @@
     > .body {
       padding: 10px;
 
+      > .button {
+        margin-right: 5px;
+      }
+
       > .title {
         text-align: center;
       }
@@ -29,10 +32,10 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 5px;
-        margin-bottom: 10px;
         > .field {
           display: grid;
           grid-template-rows: repeat(2, 26px);
+          margin-bottom: 10px;
           > label {
             padding-left: 10px;
           }
@@ -52,11 +55,12 @@
           }
         }
       }
-    }
 
-    > .footer {
-      padding: 0 10px 10px 10px;
-      > .dismiss {
+      > .footer {
+        text-align: center;
+        > .button {
+          margin: 0 3px
+        }
       }
     }
   }

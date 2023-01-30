@@ -1,5 +1,4 @@
 import { useState, useRef, useContext } from 'react'
-import { formatDate } from '@fullcalendar/core'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
@@ -9,6 +8,7 @@ import { INITIAL_EVENTS, createEventId } from '../../event-utils'
 import { ThemeContext } from '../Theme/ThemeProvider'
 import Modal from '../Modal/Modal'
 import NewEvent from './NewEvent'
+import EventContent from './EventContent'
 import "./Calendar.scss"
 
 
@@ -17,25 +17,9 @@ export default function Calendar() {
   const [currentEvents, setCurrentEvents] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [temporalInfo, setTemporalInfo] = useState({})
+
   const fullcalendar = useRef(null)
   const { language } = useContext(ThemeContext)
-
-  const modalVariants = {
-    show: { rotate: [0, 270, 0], scale: [0, 1.2, 1], borderRadius: ["100%", "0%", "5px"]},
-    hide: { rotate: [0, 270, 0], scale: [1, 1.2, 0], borderRadius: ["5px", "0%", "100%"]}
-  }
-
-  let sidebarEvents = []
-  currentEvents.map((event) => {
-    console.log(event)
-    sidebarEvents.push(
-      <li key={event.id}>
-        <b>{formatDate(event.start, {year: 'numeric', month: 'short', day: 'numeric'})}</b>
-        <span>{event.title}</span>
-        <span>{event.extendedProps.name}</span>
-      </li>
-    )
-  })
 
   function handleDateSelect(selectInfo) {
     if (fullcalendar.current.getApi().view.type === "dayGridMonth") {
@@ -44,27 +28,7 @@ export default function Calendar() {
     }
 
     setTemporalInfo(selectInfo)
-
     setIsOpen(true)
-    // let title = prompt('Please enter a new title for your event')
-    // if (!Boolean(title)) return
-    // let name = prompt('What is your name?')
-    // if (!Boolean(name)) return
-
-    // let calendarApi = selectInfo.view.calendar
-
-    // calendarApi.unselect() // clear date selection
-
-    // if (title) {
-    //   calendarApi.addEvent({
-    //     id: createEventId(),
-    //     title: title,
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     name: name,
-    //     allDay: selectInfo.allDay
-    //   })
-    // }
   }
 
   function addEvent(info) {
@@ -76,30 +40,18 @@ export default function Calendar() {
       title: info.title,
       start: info.startStr,
       end: info.endStr,
+      allDay: info.allDay,
       name: info.name,
-      allDay: false,
-      extendedProps: {
-        others: info.others
-      }
+      others: info.others
     })
 
     setIsOpen(false)
   }
 
   function handleEventClick(clickInfo) {
-    console.log(clickInfo)
     if (confirm(`Are you sure you want to delete the event ${clickInfo.event.title} created by ${clickInfo.event.extendedProps.name}`)) {
       clickInfo.event.remove()
     }
-  }
-
-  function renderEventContent(eventInfo) {
-    return (
-      <>
-        <b>{eventInfo.timeText}</b>
-        <i>{eventInfo.event.title}</i>
-      </>
-    )
   }
 
   function viewChange(event) {
@@ -124,16 +76,17 @@ export default function Calendar() {
         locale={language}
         initialView='dayGridMonth'
         firstDay={1}
-        editable={true}
+        editable={false}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
+        eventOverlap={false}
         slotMinTime={"08:00:00"}
         slotMaxTime={"23:59:59"}
         weekends={weekendsVisible}
         initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
         select={handleDateSelect}
-        eventContent={renderEventContent} // custom render function
+        eventContent={EventContent} // custom render function
         eventClick={handleEventClick}
         eventsSet={setCurrentEvents} // called after events are initialized/added/changed/removed
         /* you can update a remote database when these fire:
@@ -142,9 +95,9 @@ export default function Calendar() {
         eventRemove={function(){}}
         */
       />
-      <Modal isOpen={isOpen} setIsOpen={setIsOpen}>
+      <Modal isOpen={isOpen}>
         <h2 className="title">Reservar horario</h2>
-        <NewEvent temporalInfo={temporalInfo} addEvent={addEvent}/>
+        <NewEvent temporalInfo={temporalInfo} addEvent={addEvent} setIsOpen={setIsOpen} />
       </Modal>
     </div>
   )

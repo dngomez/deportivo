@@ -60,6 +60,12 @@ body {
     color: var(--accent);
     border-color: var(--accent);
   }
+
+  > .button-icon {
+    vertical-align: -4px;
+    font-size: 1.1rem;
+    margin-right: 5px;
+  }
 }
 
 .fc-button, .fc-button-primary, .fc-button-primary:not(:disabled) {

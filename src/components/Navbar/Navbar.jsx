@@ -23,9 +23,9 @@ export default function Navbar() {
   let links = [
     { name: "Inicio", to: "/", icon: "home"},
     { name: "Calendario", to: "/calendar", icon: "calendar_month" },
-    { name: "Link1", to: "/link1", icon: "face" },
-    { name: "Link2", to: "/link2", icon: "face" },
-    { name: "Link3", to: "/link3", icon: "face" }
+    // { name: "Link1", to: "/link1", icon: "face" },
+    // { name: "Link2", to: "/link2", icon: "face" },
+    // { name: "Link3", to: "/link3", icon: "face" }
   ]
 
   for (let i=0; i<links.length; i++) {
