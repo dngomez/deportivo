@@ -15,5 +15,5 @@ export default defineConfig({
     postcss: {},
   },
   plugins: [react()],
-  base: '/deportivo/'
+  // base: '/deportivo/'
 })
