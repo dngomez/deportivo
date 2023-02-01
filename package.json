@@ -8,7 +8,7 @@
     "build": "vite build",
     "preview": "vite preview",
     "deploy": "./deploy.sh",
-    "start": "npx http-server -P `0.0.0.0:$PORT` ./dist"
+    "start": "npx http-server ./dist"
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.8",
