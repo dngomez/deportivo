@@ -1,5 +1,4 @@
 export const Authentication = {
-
   getUser() {
     let user = localStorage.getItem('user')
     if (user) {
@@ -9,11 +8,11 @@ export const Authentication = {
     }
   },
 
-  async signin(username: string, password: string) {
+  async login(email, password) {
     try {
-      const res = await fetch(`/api/engage/login`, {
+      const res = await fetch(`/api/user/login`, {
         method: 'POST',
-        body: JSON.stringify({username: username, password: password}),
+        body: JSON.stringify({user: {email: email, password: password}}),
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json'
@@ -36,20 +35,11 @@ export const Authentication = {
     }
   },
 
-  async signout() {
+  async logout() {
     try {
-      const res = await fetch(`/api/engage/logout`, {
-        method: 'POST',
-        headers: {
-          'Accept': '*/*',
-          'Content-Type': 'application/json'
-        }
-      })
-
-      if (res.status === 200) {
-        localStorage.removeItem("user")
-      }
+      localStorage.removeItem("user")
     } catch (error) {
+      console.log(error)
     }
   }
 }

@@ -49,6 +49,7 @@ export default function EventContent(eventInfo) {
           variants={{
             open: {
               opacity: 1,
+              display: "block",
               transition: {
                 type: "spring",
                 bounce: 0,
@@ -59,6 +60,7 @@ export default function EventContent(eventInfo) {
             },
             closed: {
               opacity: 0,
+              display: "none",
               transition: {
                 type: "spring",
                 bounce: 0,

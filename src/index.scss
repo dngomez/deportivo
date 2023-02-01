@@ -84,3 +84,11 @@ body {
     background-color: transparent !important;
   }
 }
+
+.fc .fc-daygrid-event-harness {
+  z-index: initial;
+}
+
+.fc .fc-daygrid-event {
+  z-index: initial;
+}

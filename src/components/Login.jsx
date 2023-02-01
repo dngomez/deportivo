@@ -6,7 +6,7 @@ export default function Login() {
   let navigate = useNavigate()
   let location = useLocation()
   let auth = useContext(AuthContext)
-  const [username, setUsername] = useState("")
+  const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -14,7 +14,7 @@ export default function Login() {
 
   function handleSubmit() {
     setLoading(true)
-    auth.signin(username, password)
+    auth.login(email, password)
       .then(isLogged => {
         if (isLogged) {
           // Send them back to the page they tried to visit when they were
@@ -47,7 +47,7 @@ export default function Login() {
           <span className="p-inputgroup-addon">
             <i className="pi pi-user"></i>
           </span>
-          <input type="text" placeholder="Username" value={username} onChange={(e) => setUsername(e.target.value)} />
+          <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="p-inputgroup mb-10">
           <span className="p-inputgroup-addon">
@@ -57,10 +57,10 @@ export default function Login() {
         </div>
         <div className="login-buttons">
           <div className="text-right w-100">
-            <button label="Submit" icon="pi pi-check" iconPos="right" onClick={handleSubmit} loading={loading} />
+            <button label="Submit" onClick={handleSubmit}>Submit</button>
           </div>
           <div className="text-left w-100">
-            <button label="Cancel" icon="pi pi-times" iconPos="right" className=" p-button-danger" onClick={goHome} />
+            <button label="Cancel" className=" p-button-danger" onClick={goHome}>Cancel</button>
           </div>
         </div>
       </div>

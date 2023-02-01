@@ -1,23 +1,11 @@
-import { useContext } from 'react'
-import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { ThemeContext } from '../Theme/ThemeProvider'
+import { Link, useLocation } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import Logo from '../Logo/Logo'
 import Settings from './Settings/Settings'
 import './Navbar.scss'
 
 export default function Navbar() {
-  let navigate = useNavigate()
   let location = useLocation()
-  let { theme, toggleTheme, language, setLanguage } = useContext(ThemeContext)
-
-  function userSession() {
-    if (auth.isUserLoggedIn) {
-      auth.signout()
-    } else {
-      navigate("/login")
-    }
-  }
 
   let navLinks = []
   let links = [

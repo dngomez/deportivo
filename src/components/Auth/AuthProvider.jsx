@@ -1,28 +1,46 @@
-import { createContext, useState, ReactNode } from "react";
+import { createContext, useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import { Authentication } from "../../Helpers/Authentication";
+import jwtDecode from "jwt-decode"
 
 
 export const AuthContext = createContext(null);
 
 export default function AuthProvider ({ children }) {
-  let [user, setUser] = useState(Authentication.getUser());
-  let [isUserLoggedIn, setIsUserLoggedIn] = useState(Boolean(Authentication.getUser()))
+  const [user, setUser] = useState(Authentication.getUser());
+  const [isUserLoggedIn, setIsUserLoggedIn] = useState(Boolean(Authentication.getUser()))
+  const location = useLocation()
 
-  let signin = async (username, password) => {
-    let [user, message] = await Authentication.signin(username, password)
+  async function login(username, password) {
+    let [user, message] = await Authentication.login(username, password)
     if (!Boolean(user)) return Promise.resolve(false)
     setUser(user)
     setIsUserLoggedIn(true)
     return Promise.resolve(true)
-  };
+  }
 
-  let signout = async () => {
-    await Authentication.signout()
+  async function logout() {
+    await Authentication.logout()
     setUser(null)
     setIsUserLoggedIn(false)
-  };
+  }
 
-  let value = { user, signin, signout, isUserLoggedIn };
+  function isTokenValid() {
+    let decodedToken = jwtDecode(user.token)
+    if (new Date() >= new Date(decodedToken.exp * 1000)) {
+      logout()
+      console.log("Tu sesión ha expirado")
+      return false
+    }
+    return true
+  }
+
+  useEffect(() => {
+    if (!isUserLoggedIn) return
+    isTokenValid()
+  }, [location, children, user])
+
+  let value = { user, login, logout, isTokenValid, isUserLoggedIn };
 
   return (
     <AuthContext.Provider value={value}>

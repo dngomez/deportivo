@@ -1,14 +1,15 @@
-import { useState, useRef, useContext } from 'react'
+import { useEffect, useState, useRef, useContext } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import esLocale from '@fullcalendar/core/locales/es'
-import { INITIAL_EVENTS, createEventId } from '../../event-utils'
 import { ThemeContext } from '../Theme/ThemeProvider'
+import { AuthContext } from '../Auth/AuthProvider'
 import Modal from '../Modal/Modal'
 import NewEvent from './NewEvent'
 import EventContent from './EventContent'
+import { CalendarEvent } from "../../Helpers/CalendarEvent"
 import "./Calendar.scss"
 
 
@@ -20,6 +21,14 @@ export default function Calendar() {
 
   const fullcalendar = useRef(null)
   const { language } = useContext(ThemeContext)
+  const { user, isTokenValid, isUserLoggedIn } = useContext(AuthContext)
+
+  useEffect(() => {
+    if (isTokenValid()) {
+      CalendarEvent.getAll(user)
+      .then(res => setCurrentEvents(res))
+    }
+  }, [])
 
   function handleDateSelect(selectInfo) {
     if (fullcalendar.current.getApi().view.type === "dayGridMonth") {
@@ -31,19 +40,26 @@ export default function Calendar() {
     setIsOpen(true)
   }
 
-  function addEvent(info) {
-    let calendarApi = info.view.calendar
-    calendarApi.unselect()
+  async function addEvent(info) {
+    if (!isTokenValid) return
 
-    calendarApi.addEvent({
-      id: createEventId(),
+    let event = {
       title: info.title,
       start: info.startStr,
+      startDate: info.start,
       end: info.endStr,
+      endDate: info.end,
       allDay: info.allDay,
-      name: info.name,
+      user: user.user._id,
+      name: `${user.user.first_name} ${user.user.last_name}`,
       others: info.others
+    }
+
+    CalendarEvent.create(user, event)
+    .then(res => {
+      info.view.calendar.addEvent({...event, _id: res._id})
     })
+    info.view.calendar.unselect()
 
     setIsOpen(false)
   }
@@ -76,7 +92,7 @@ export default function Calendar() {
         locale={language}
         initialView='dayGridMonth'
         firstDay={1}
-        editable={false}
+        editable={isUserLoggedIn}
         selectable={true}
         selectMirror={true}
         dayMaxEvents={true}
@@ -84,20 +100,20 @@ export default function Calendar() {
         slotMinTime={"08:00:00"}
         slotMaxTime={"23:59:59"}
         weekends={weekendsVisible}
-        initialEvents={INITIAL_EVENTS} // alternatively, use the `events` setting to fetch from a feed
+        // initialEvents={currentEvents} // alternatively, use the `events` setting to fetch from a feed
+        events={currentEvents}
         select={handleDateSelect}
         eventContent={EventContent} // custom render function
         eventClick={handleEventClick}
-        eventsSet={setCurrentEvents} // called after events are initialized/added/changed/removed
-        /* you can update a remote database when these fire:
-        eventAdd={function(){}}
+        // eventsSet={setCurrentEvents} // called after events are initialized/added/changed/removed
+        // Database can be updated when these events are triggered
+        // eventAdd={addEventAPI}
         eventChange={function(){}}
         eventRemove={function(){}}
-        */
       />
       <Modal isOpen={isOpen}>
         <h2 className="title">Reservar horario</h2>
-        <NewEvent temporalInfo={temporalInfo} addEvent={addEvent} setIsOpen={setIsOpen} />
+        <NewEvent temporalInfo={temporalInfo} addEvent={addEvent} setIsOpen={setIsOpen} isUserLoggedIn={isUserLoggedIn} />
       </Modal>
     </div>
   )

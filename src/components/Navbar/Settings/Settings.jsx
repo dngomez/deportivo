@@ -1,6 +1,8 @@
 import { motion } from 'framer-motion'
 import { useState, useContext } from 'react'
-import { ThemeContext } from '../../Theme/ThemeProvider';
+import { useNavigate } from 'react-router-dom'
+import { ThemeContext } from '../../Theme/ThemeProvider'
+import { AuthContext } from '../../Auth/AuthProvider'
 
 const itemVariants = {
   open: {
@@ -13,7 +15,44 @@ const itemVariants = {
 
 export default function Settings() {
   const [isOpen, setIsOpen] = useState(false)
-  let theme = useContext(ThemeContext)
+  const theme = useContext(ThemeContext)
+  const navigate = useNavigate()
+  const { user, logout, isUserLoggedIn } = useContext(AuthContext)
+
+  let userButtons = []
+  if (isUserLoggedIn) {
+    userButtons.push(
+      <motion.li
+        key={`button2`}
+        variants={itemVariants}
+        onClick={() => {}}
+      >
+        <span className="material-icons dropdown-icon">face</span>
+        Perfil
+      </motion.li>
+    )
+    userButtons.push(
+      <motion.li
+        key={`button1`}
+        variants={itemVariants}
+        onClick={() => logout()}
+      >
+        <span className="material-icons dropdown-icon">logout</span>
+        Logout
+      </motion.li>
+    )
+  } else {
+    userButtons.push(
+    <motion.li
+      key={`button1`}
+      variants={itemVariants}
+      onClick={() => navigate("/login")}
+    >
+      <span className="material-icons dropdown-icon">login</span>
+      Login
+    </motion.li>
+    )
+  }
 
   return (
     <div className="link-text settings">
@@ -54,6 +93,7 @@ export default function Settings() {
           <span className="material-icons dropdown-icon">{(theme.theme === "dark") ? "light_mode" : "dark_mode"}</span>
           {(theme.theme === "dark") ? "Modo claro" : "Modo oscuro"}
         </motion.li>
+        {userButtons}
         {/* <motion.li variants={itemVariants}>Item 2</motion.li>
         <motion.li variants={itemVariants}>Item 3</motion.li>
         <motion.li variants={itemVariants}>Item 4</motion.li>

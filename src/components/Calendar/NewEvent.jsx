@@ -1,14 +1,10 @@
-import { useEffect } from "react"
 import { useReducer } from "react"
+import { useNavigate } from "react-router-dom"
 
 function reducer(state, action) {
-  let tzoffset = (new Date()).getTimezoneOffset() * 60000
   switch (action.type) {
     case "set_title":
       return {...state, title: action.title}
-
-    case "set_name":
-      return {...state, name: action.name}
 
     case "set_start":
       return {...state, start: Date.parse(`${action.start}:00-03:00`), startStr: `${action.start}:00-03:00`}
@@ -29,14 +25,15 @@ function reducer(state, action) {
   }
 }
 
-export default function NewEvent({ temporalInfo, addEvent, setIsOpen }) {
+export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLoggedIn }) {
   const [state, dispatch] = useReducer(reducer, {
     ...temporalInfo,
     title: "",
-    name: "",
     other_people: 0,
     others: []
   })
+
+  const navigate = useNavigate()
 
   function checkEvent() {
     if (state.end <= state.start)
@@ -44,9 +41,6 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen }) {
 
     if (!Boolean(state.title))
       return alert("Tu evento debe tener un título")
-
-    if (!Boolean(state.name))
-      return alert("Por favor debes registrar tu nombre")
 
     if ((state.end - state.start) / 3600000 > 24)
       return alert("Por el momento no se pueden registrar eventos que duren más de un día")
@@ -81,6 +75,29 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen }) {
     )
   }
 
+  if (!isUserLoggedIn) {
+    return (
+      <>
+        <h3 className="title">Debes ingresar a tu sesión antes de crear un evento.</h3>
+        <h3 className="title">Si aún no tienes un usuario, puedes registrarte en la página web utilizando tu correo electrónico.</h3>
+        <div className="footer">
+          <button className="button" onClick={() => navigate("/login")}>
+            <span className="material-icons button-icon">login</span>
+            Ingresar
+          </button>
+          <button className="button" onClick={() => navigate("/register")}>
+            <span className="material-icons button-icon">person_add</span>
+            Registrar
+          </button>
+          <button className="button dismiss" onClick={() => setIsOpen(false)}>
+            <span className="material-icons button-icon">close</span>
+            Cancelar
+          </button>
+        </div>
+      </>
+    )
+  }
+
   return (
     <>
       <div className="form-row">
@@ -94,40 +111,6 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen }) {
             value={state.title}
           />
         </div>
-        <div className="field">
-          <label htmlFor="name">Nombre</label>
-          <input
-            id="name"
-            type="text"
-            placeholder="Nombre"
-            onChange={(e) => dispatch({type: "set_name", name: e.target.value})}
-            value={state.name}
-          />
-        </div>
-      </div>
-      {/* <div className="form-row">
-        <div className="field">
-          <label htmlFor="start">Inicio</label>
-          <input
-            id="start"
-            type="datetime-local"
-            placeholder="Título"
-            onChange={(e) => dispatch({type: "set_start", start: e.target.value})}
-            value={state.startStr.substring(0, state.startStr.length - 6)}
-          />
-        </div>
-        <div className="field">
-          <label htmlFor="end">Término</label>
-          <input
-            id="end"
-            type="datetime-local"
-            placeholder="Nombre"
-            onChange={(e) => dispatch({type: "set_end", end: e.target.value})}
-            value={state.endStr.substring(0, state.endStr.length - 6)}
-          />
-        </div>
-      </div> */}
-      <div className="form-row">
         <div className="field">
           <label htmlFor="other_people">Número de acompañantes</label>
           <input
