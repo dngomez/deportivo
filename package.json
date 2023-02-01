@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "./deploy.sh"
+    "deploy": "./deploy.sh",
+    "start": "vite preview --host 0.0.0.0:${PORT}"
   },
   "dependencies": {
     "@fontsource/roboto": "^4.5.8",
