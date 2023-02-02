@@ -1,6 +1,8 @@
 import { useContext, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Auth/AuthProvider";
+import Logo from "./Logo/Logo";
+import "./Login.scss"
 
 export default function Login() {
   let navigate = useNavigate()
@@ -31,37 +33,37 @@ export default function Login() {
       })
   }
 
-  function goHome() {
-    navigate("/")
-  }
-
   return (
     <div className="login">
-      <div className="box">
-        <div className="title">
-          <div className="text">
-            Navigate
-          </div>
-        </div>
-        <div className="p-inputgroup mb-10">
-          <span className="p-inputgroup-addon">
-            <i className="pi pi-user"></i>
-          </span>
+      <div className="content">
+        <Logo />
+        <div className="field">
+          <label>
+            <span className="material-icons button-icon">mail</span>
+            Correo
+          </label>
           <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
-        <div className="p-inputgroup mb-10">
-          <span className="p-inputgroup-addon">
-            <i className="pi pi-key"></i>
-          </span>
+        <div className="field">
+          <label>
+            <span className="material-icons button-icon">password</span>
+            Contraseña
+          </label>
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className="login-buttons">
-          <div className="text-right w-100">
-            <button label="Submit" onClick={handleSubmit}>Submit</button>
-          </div>
-          <div className="text-left w-100">
-            <button label="Cancel" className=" p-button-danger" onClick={goHome}>Cancel</button>
-          </div>
+          <button className="button" onClick={handleSubmit}>
+            <span className="material-icons button-icon">login</span>
+            Ingresar
+          </button>
+          <button className="button" onClick={() => navigate("/register")}>
+            <span className="material-icons button-icon">person_add</span>
+            Registrar
+          </button>
+          <button className="button dismiss" onClick={() => navigate("/")}>
+            <span className="material-icons button-icon">close</span>
+            Cancelar
+          </button>
         </div>
       </div>
     </div>

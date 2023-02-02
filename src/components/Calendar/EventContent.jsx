@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion'
 
-
 const eventVariants = {
   open: {
     opacity: 1,
@@ -70,7 +69,7 @@ export default function EventContent(eventInfo) {
             }
           }}
         >
-          <motion.span variants={eventVariants}>Persona a cargo: {eventInfo.event.extendedProps.name}</motion.span>
+          <motion.span variants={eventVariants}>Responsable: {eventInfo.event.extendedProps.name}</motion.span>
           {eventInfo.event.extendedProps.others?.map((el, idx) => {
             return (
               <motion.span key={`eventPerson${idx}`} variants={eventVariants}>{`Invitado ${idx+1}: ${el.name}`}</motion.span>

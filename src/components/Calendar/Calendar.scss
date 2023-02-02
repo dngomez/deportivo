@@ -47,6 +47,10 @@
     height: 100%;
     width: 100%;
     cursor: pointer;
+
+    &.locked-event {
+      color: var(--text-color-faded);
+    }
     > .inline-event {
       margin-left: 5px;
     }

@@ -36,8 +36,9 @@ export default function AuthProvider ({ children }) {
   }
 
   useEffect(() => {
-    if (!isUserLoggedIn) return
-    isTokenValid()
+    if (isUserLoggedIn) {
+      isTokenValid()
+    }
   }, [location, children, user])
 
   let value = { user, login, logout, isTokenValid, isUserLoggedIn };

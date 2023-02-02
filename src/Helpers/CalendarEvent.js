@@ -4,8 +4,7 @@ export const CalendarEvent = {
       const res = await fetch("/api/event/all", {
         headers: {
           'Accept': '*/*',
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${user.token}`
+          'Content-Type': 'application/json'
         }
       })
       const data = await res.json()
@@ -33,11 +32,11 @@ export const CalendarEvent = {
     }
   },
 
-  async delete() {
+  async update(user, eventId, changes) {
     try {
-      const res = await fetch("/api/event/delete", {
-        method: "DELETE",
-        body: JSON.stringify({ _id: null }),
+      const res = await fetch(`/api/event/update?_id=${eventId}`, {
+        method: "PATCH",
+        body: JSON.stringify(changes),
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json',
@@ -45,6 +44,24 @@ export const CalendarEvent = {
         }
       })
       const data = await res.json()
+      return data
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async delete(user, eventId) {
+    try {
+      const res = await fetch(`/api/event/delete?_id=${eventId}`, {
+        method: "DELETE",
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+      const data = await res.json()
+      return data
     } catch (error) {
       console.log(error)
     }

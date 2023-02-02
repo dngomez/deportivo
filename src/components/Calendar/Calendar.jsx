@@ -24,10 +24,8 @@ export default function Calendar() {
   const { user, isTokenValid, isUserLoggedIn } = useContext(AuthContext)
 
   useEffect(() => {
-    if (isTokenValid()) {
-      CalendarEvent.getAll(user)
-      .then(res => setCurrentEvents(res))
-    }
+    CalendarEvent.getAll()
+    .then(res => setCurrentEvents(res))
   }, [])
 
   function handleDateSelect(selectInfo) {
@@ -64,8 +62,31 @@ export default function Calendar() {
     setIsOpen(false)
   }
 
+  async function updateEvent({ event, oldEvent, revert }) {
+    if (!isUserLoggedIn) return
+
+    if (event.extendedProps.user !== user.user._id) {
+      alert("Este evento no es tuyo, no puedes modificarlo")
+      revert()
+      return
+    }
+
+    let changes = {}
+    if (event.start !== oldEvent.start) changes["start"] = event.start
+    if (event.startStr !== oldEvent.startStr) changes["startStr"] = event.startStr
+    if (event.end !== oldEvent.end) changes["end"] = event.end
+    if (event.endStr !== oldEvent.endStr) changes["endStr"] = event.endStr
+    if (event.title !== oldEvent.title) changes["title"] = event.title
+
+    CalendarEvent.update(user, event.extendedProps._id, changes)
+  }
+
   function handleEventClick(clickInfo) {
+    if (!isUserLoggedIn) return alert("Debes ingresar para modificar tus eventos")
+    if (clickInfo.event.extendedProps.user !== user.user._id)
+      return alert("Este evento fue creado por otro usuario, no tienes permiso para modificarlo.")
     if (confirm(`Are you sure you want to delete the event ${clickInfo.event.title} created by ${clickInfo.event.extendedProps.name}`)) {
+      CalendarEvent.delete(user, clickInfo.event.extendedProps._id)
       clickInfo.event.remove()
     }
   }
@@ -107,8 +128,7 @@ export default function Calendar() {
         eventClick={handleEventClick}
         // eventsSet={setCurrentEvents} // called after events are initialized/added/changed/removed
         // Database can be updated when these events are triggered
-        // eventAdd={addEventAPI}
-        eventChange={function(){}}
+        eventChange={updateEvent}
         eventRemove={function(){}}
       />
       <Modal isOpen={isOpen}>
