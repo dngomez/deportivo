@@ -35,9 +35,29 @@ export const Authentication = {
     }
   },
 
-  async logout() {
+  logout() {
     try {
-      localStorage.removeItem("user")
+      localStorage.removeItem('user')
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async update(user, changes) {
+    try {
+      fetch(`/api/user/update?_id=${user.user._id}`, {
+        method: "PATCH",
+        body: JSON.stringify(changes),
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+      .then(res => res.json())
+      .then(data => {
+        localStorage.setItem('user', JSON.stringify(data))
+      })
     } catch (error) {
       console.log(error)
     }

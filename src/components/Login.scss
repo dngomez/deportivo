@@ -5,15 +5,16 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.3);
   overflow-y: auto;
 
   > .content {
     position: absolute;
     text-align: center;
     padding: 10px;
-    left: 15%;
-    width: 70%;
+    left: 25%;
+    width: 50%;
+    top: 10%;
     z-index: 100;
     border: 1px solid var(--navbar-bg-color);
     background-color: var(--bg-color);
@@ -21,6 +22,7 @@
 
     > .logo {
       margin-bottom: 10px;
+      justify-content: center;
     }
 
     > .login-buttons {
@@ -32,36 +34,40 @@
     }
 
     .field {
-      display: grid;
-      grid-template-columns: 1fr 4fr;
-      gap: 5px;
-      margin-bottom: 5px;
-      justify-content: center;
-      
-      label {
-        text-align: left;
-        color: var(--text-color);
-        line-height: 2rem;
+      display: flex;
+      background-color: var(--input-bg);
+      border-radius: 13px;
+      border: 1px solid var(--text-color-faded);
+      transition: border-color 0.5s, color 0.5s;
+      color: var(--text-color-faded);
+      margin-bottom: 10px;
 
-        > .button-icon {
-          font-size: 1rem;
-          margin-right: 5px;
-          vertical-align: -2px;
-        }
+      > span {
+        padding: 5px;
+        border-right: 1px solid var(--text-color-faded);
+        transition: border-color 0.5s;
       }
 
       input {
-        background-color: var(--input-bg);
+        background-color: transparent;
         border-radius: 13px;
+        width: 100%;
         border: 1px solid;
         border-color: transparent;
-        padding: 5px 10px;
-        transition: border-color 0.5s, color 0.5s;
-        color: var(--input-faded);
+        color: var(--text-color);
+        padding: 5px;
+        transition: color 0.5s;
         &:focus-visible, &:focus, &:active {
-          border-color: var(--accent);
           outline: none;
-          color: var(--text-color);
+          color: var(--accent);
+        }
+      }
+      &:focus-within {
+        border-color: var(--accent);
+        outline: none;
+        color: var(--accent);
+        > span {
+          border-color: var(--accent);
         }
       }
     }

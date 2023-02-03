@@ -1,6 +1,7 @@
 import { useContext } from "react"
 import { createContext, useState, useEffect } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
+import { Authentication } from "../../Helpers/Authentication"
 
 
 export const ThemeContext = createContext(null)
@@ -11,12 +12,17 @@ export default function ThemeProvider ({ children }) {
   const { user, isUserLoggedIn } = useContext(AuthContext)
 
   function toggleTheme() {
-    setTheme((theme === "dark") ? "light" : "dark")
+    let newTheme = (theme === "dark") ? "light" : "dark"
+    setTheme(newTheme)
+    if (isUserLoggedIn) {
+      Authentication.update(user, { theme: newTheme })
+    }
   }
 
   useEffect(() => {
-    if (!isUserLoggedIn) return
-    setTheme(user.user.theme)
+    if (isUserLoggedIn) {
+      setTheme(user.user.theme)
+    }
   }, [user])
 
   useEffect(() => {
@@ -24,7 +30,7 @@ export default function ThemeProvider ({ children }) {
   }, [theme])
 
   return (
-    <ThemeContext.Provider value={{ theme, toggleTheme, setTheme, language, setLanguage }}>
+    <ThemeContext.Provider value={{ theme, toggleTheme, language, setLanguage }}>
       { children }
     </ThemeContext.Provider>
   );

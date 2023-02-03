@@ -1,6 +1,7 @@
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AuthContext } from "./Auth/AuthProvider";
+import { motion } from "framer-motion";
 import Logo from "./Logo/Logo";
 import "./Login.scss"
 
@@ -35,20 +36,23 @@ export default function Login() {
 
   return (
     <div className="login">
-      <div className="content">
+      <motion.div
+        className="content"
+        initial={{ opacity: 0.2, scale: 0 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{
+          duration: 1,
+          delay: 0.5,
+          ease: [0, 0.71, 0.2, 1.01]
+        }}
+      >
         <Logo />
         <div className="field">
-          <label>
-            <span className="material-icons button-icon">mail</span>
-            Correo
-          </label>
+          <span className="material-icons button-icon">mail</span>
           <input type="text" placeholder="Email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div className="field">
-          <label>
-            <span className="material-icons button-icon">password</span>
-            Contraseña
-          </label>
+          <span className="material-icons button-icon">password</span>
           <input type="password" placeholder="Password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <div className="login-buttons">
@@ -65,7 +69,7 @@ export default function Login() {
             Cancelar
           </button>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }

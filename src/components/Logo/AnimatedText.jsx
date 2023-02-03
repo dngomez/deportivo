@@ -27,7 +27,7 @@ export default function AnimatedCharacters({ text }) {
             style={{ display: "inline-block" }}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.2, delay: 0.05 * index }}
+            transition={{ duration: 0.2, delay: 0.05 * index + 1 }}
           >
             {element}
           </motion.span>

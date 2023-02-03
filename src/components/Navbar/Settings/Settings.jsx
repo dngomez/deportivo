@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { useState, useContext } from 'react'
+import { useState, useContext, useRef, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { ThemeContext } from '../../Theme/ThemeProvider'
 import { AuthContext } from '../../Auth/AuthProvider'
@@ -11,13 +11,26 @@ const itemVariants = {
     transition: { type: "spring", stiffness: 300, damping: 24 }
   },
   closed: { opacity: 0, y: 20, transition: { duration: 0.2 } }
-};
+}
 
 export default function Settings() {
   const [isOpen, setIsOpen] = useState(false)
   const theme = useContext(ThemeContext)
   const navigate = useNavigate()
   const { user, logout, isUserLoggedIn } = useContext(AuthContext)
+  const settingsRef = useRef(null);
+
+  useEffect(() => {
+    function handleClickOutside(event) {
+      if (settingsRef.current && !settingsRef.current.contains(event.target)) {
+        setIsOpen(false)
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [settingsRef])
 
   let userButtons = []
   if (isUserLoggedIn) {
@@ -55,7 +68,7 @@ export default function Settings() {
   }
 
   return (
-    <div className="link-text settings">
+    <div ref={settingsRef} className="link-text settings">
       <span
         onClick={() => setIsOpen(!isOpen)}
         className="material-icons link-icon">

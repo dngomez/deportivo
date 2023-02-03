@@ -20,7 +20,7 @@ export default function AuthProvider ({ children }) {
   }
 
   async function logout() {
-    await Authentication.logout()
+    Authentication.logout()
     setUser(null)
     setIsUserLoggedIn(false)
   }
