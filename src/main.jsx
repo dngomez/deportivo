@@ -8,11 +8,12 @@ import {
 import ThemeProvider from './components/Theme/ThemeProvider'
 import AuthProvider from './components/Auth/AuthProvider'
 import Calendar from './components/Calendar/Calendar'
+import Profile from './components/Profile/Profile'
 import Layout from './components/Layout'
 import Home from './components/Home'
 import Login from './components/Login'
+import Register from './components/Register'
 import './index.scss'
-// import "@fontsource/roboto";
 import 'material-icons/iconfont/material-icons.css';
 import RequireAuth from './components/Auth/RequireAuth'
 
@@ -25,13 +26,14 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="calendar" element={<Calendar />} />
-              <Route path="link1" element={<RequireAuth><p>asdasd</p></RequireAuth>} />
+              <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>} />
               <Route path="link2" element={null} />
               <Route path="link3" element={null} />
               <Route path="link4" element={null} />
               <Route path="link5" element={null} />
             </Route>
             <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </ThemeProvider>
       </AuthProvider>

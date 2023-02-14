@@ -11,11 +11,11 @@ export default function ThemeProvider ({ children }) {
   const [language, setLanguage] = useState('es')
   const { user, isUserLoggedIn } = useContext(AuthContext)
 
-  function toggleTheme() {
+  async function toggleTheme() {
     let newTheme = (theme === "dark") ? "light" : "dark"
     setTheme(newTheme)
     if (isUserLoggedIn) {
-      Authentication.update(user, { theme: newTheme })
+      await Authentication.update(user, { theme: newTheme })
     }
   }
 

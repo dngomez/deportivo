@@ -45,7 +45,7 @@ export const Authentication = {
 
   async update(user, changes) {
     try {
-      fetch(`/api/user/update?_id=${user.user._id}`, {
+      const res = await fetch(`/api/user/update?_id=${user.user._id}`, {
         method: "PATCH",
         body: JSON.stringify(changes),
         headers: {
@@ -54,10 +54,32 @@ export const Authentication = {
           'Authorization': `Bearer ${user.token}`
         }
       })
-      .then(res => res.json())
-      .then(data => {
+
+      if (res.status === 200) {
+        const data = await res.json()
         localStorage.setItem('user', JSON.stringify(data))
+        return
+      }
+    } catch (error) {
+      console.log(error)
+    }
+  },
+
+  async create(user) {
+    try {
+      const res = await fetch('/api/user/create', {
+        method: "POST",
+        body: JSON.stringify(user),
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
       })
+
+      const data = await res.json()
+      return data
+
     } catch (error) {
       console.log(error)
     }

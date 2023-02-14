@@ -36,16 +36,6 @@ export default function Settings() {
   if (isUserLoggedIn) {
     userButtons.push(
       <motion.li
-        key={`button2`}
-        variants={itemVariants}
-        onClick={() => {}}
-      >
-        <span className="material-icons dropdown-icon">face</span>
-        Perfil
-      </motion.li>
-    )
-    userButtons.push(
-      <motion.li
         key={`button1`}
         variants={itemVariants}
         onClick={() => logout()}
@@ -56,16 +46,27 @@ export default function Settings() {
     )
   } else {
     userButtons.push(
-    <motion.li
-      key={`button1`}
-      variants={itemVariants}
-      onClick={() => navigate("/login")}
-    >
-      <span className="material-icons dropdown-icon">login</span>
-      Login
-    </motion.li>
+      <motion.li
+        key={`button1`}
+        variants={itemVariants}
+        onClick={() => navigate("/login")}
+      >
+        <span className="material-icons dropdown-icon">login</span>
+        Login
+      </motion.li>
     )
   }
+  
+  userButtons.push(
+    <motion.li
+      key={`button2`}
+      variants={itemVariants}
+      onClick={() => navigate("/register")}
+    >
+      <span className="material-icons dropdown-icon">person_add</span>
+      Registrarse
+    </motion.li>
+  )
 
   return (
     <div ref={settingsRef} className="link-text settings">

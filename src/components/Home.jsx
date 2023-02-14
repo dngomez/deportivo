@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react"
+import { useContext } from "react"
 import { AuthContext } from "./Auth/AuthProvider"
 
 export default function Home () {

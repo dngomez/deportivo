@@ -78,7 +78,7 @@ export default function Calendar() {
     if (event.endStr !== oldEvent.endStr) changes["endStr"] = event.endStr
     if (event.title !== oldEvent.title) changes["title"] = event.title
 
-    CalendarEvent.update(user, event.extendedProps._id, changes)
+    await CalendarEvent.update(user, event.extendedProps._id, changes)
   }
 
   function handleEventClick(clickInfo) {

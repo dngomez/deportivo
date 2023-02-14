@@ -15,6 +15,11 @@
   --fc-border-color: rgba(50, 50, 50, 1);
   --fc-today-bg-color: rgba(54, 0, 0, 0.3);
   --fc-event-bg-color: rgba(233, 69, 96, 0.514);
+  --logo-air-color: #F8971C;
+  --logo-bolt-color: var(--accent);
+  --logo-air2-color: var(--accent-faded);
+  --logo-brightness-color: var(--noirlab-blue);
+  --logo-body-color: var(--text-color-faded);
 
   color-scheme: dark;
 }
@@ -34,6 +39,11 @@
   --fc-border-color: rgba(210, 210, 210, 1);
   --fc-today-bg-color: rgba(230, 0, 0, 0.3);
   --fc-event-bg-color: rgba(0, 153, 153, 0.514);
+  --logo-air-color: #F8971C;
+  --logo-bolt-color: var(--accent);
+  --logo-air2-color: var(--accent-faded);
+  --logo-brightness-color: var(--noirlab-blue);
+  --logo-body-color: var(--text-color-faded);
 
   color-scheme: light;
 }
@@ -45,6 +55,10 @@ body {
   --noirlab-blue: rgb(0,105,169);
   --noirlab-grey: rgb(110,110,115);
   --noirlab-red: rgb(238,75,75);
+}
+
+.main {
+  padding: 10px;
 }
 
 .button {
@@ -59,6 +73,16 @@ body {
   &:hover {
     color: var(--accent);
     border-color: var(--accent);
+  }
+
+  &:disabled {
+    background: none;
+    background-color: var(--bg-color);
+
+    &:hover {
+      border-color: var(--accent-faded);
+      color: var(--text-color);
+    }
   }
 
   > .button-icon {
