@@ -1,5 +1,5 @@
 import { useReducer } from "react"
-import { useNavigate } from "react-router-dom"
+import { useNavigate, useLocation } from "react-router-dom"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -34,6 +34,7 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
   })
 
   const navigate = useNavigate()
+  const location = useLocation()
 
   function checkEvent() {
     if (state.end <= state.start)
@@ -81,11 +82,11 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
         <h3 className="title">Debes ingresar a tu sesión antes de crear un evento.</h3>
         <h3 className="title">Si aún no tienes un usuario, puedes registrarte en la página web utilizando tu correo electrónico.</h3>
         <div className="footer">
-          <button className="button" onClick={() => navigate("/login")}>
+          <button className="button" onClick={() => navigate("/login", {state: {from: location.pathname}})}>
             <span className="material-icons button-icon">login</span>
             Ingresar
           </button>
-          <button className="button" onClick={() => navigate("/register")}>
+          <button className="button" onClick={() => navigate("/register", {state: {from: location.pathname}})}>
             <span className="material-icons button-icon">person_add</span>
             Registrar
           </button>

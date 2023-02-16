@@ -13,7 +13,7 @@ export default function Login() {
   const [password, setPassword] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const from = location.state?.from?.pathname ?? "/";
+  const from = location.state?.from ?? "/";
 
   function handleSubmit() {
     setLoading(true)
@@ -64,7 +64,7 @@ export default function Login() {
             <span className="material-icons button-icon">person_add</span>
             Registrar
           </button>
-          <button className="button dismiss" onClick={() => navigate("/")}>
+          <button className="button dismiss" onClick={() => navigate(from, { replace: true })}>
             <span className="material-icons button-icon">close</span>
             Cancelar
           </button>

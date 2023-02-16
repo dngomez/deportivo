@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState, useContext, useRef, useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { ThemeContext } from '../../Theme/ThemeProvider'
 import { AuthContext } from '../../Auth/AuthProvider'
 
@@ -16,10 +16,13 @@ const itemVariants = {
 export default function Settings() {
   const [isOpen, setIsOpen] = useState(false)
   const theme = useContext(ThemeContext)
-  const navigate = useNavigate()
   const { user, logout, isUserLoggedIn } = useContext(AuthContext)
+
   const settingsRef = useRef(null);
 
+  const navigate = useNavigate()
+  const location = useLocation()
+  
   useEffect(() => {
     function handleClickOutside(event) {
       if (settingsRef.current && !settingsRef.current.contains(event.target)) {
@@ -49,7 +52,7 @@ export default function Settings() {
       <motion.li
         key={`button1`}
         variants={itemVariants}
-        onClick={() => navigate("/login")}
+        onClick={() => navigate("/login", {state: {from: location.pathname}})}
       >
         <span className="material-icons dropdown-icon">login</span>
         Login
@@ -61,7 +64,7 @@ export default function Settings() {
     <motion.li
       key={`button2`}
       variants={itemVariants}
-      onClick={() => navigate("/register")}
+      onClick={() => navigate("/register", {state: {from: location.pathname}})}
     >
       <span className="material-icons dropdown-icon">person_add</span>
       Registrarse

@@ -24,17 +24,19 @@
       margin-left: 0;
     }
 
-    > .bot > .logo-text { 
-      > span {
-        font-size: 1.8rem;
-        font-weight: bolder;
-        margin-right: 33px;
-
-        &:last-child {
-          margin-right: 0;
+    > .bot {
+      height: 34px;
+      > .logo-text { 
+        > span {
+          font-size: 1.8rem;
+          font-weight: bolder;
+          margin-right: 33px;
+  
+          &:last-child {
+            margin-right: 0;
+          }
         }
       }
-
     }
   }
 
