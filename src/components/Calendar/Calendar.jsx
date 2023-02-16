@@ -25,7 +25,9 @@ export default function Calendar() {
 
   useEffect(() => {
     CalendarEvent.getAll()
-    .then(res => setCurrentEvents(res))
+    .then(res => {
+      setCurrentEvents(res.results)
+    })
   }, [])
 
   function handleDateSelect(selectInfo) {
@@ -53,10 +55,12 @@ export default function Calendar() {
       others: info.others
     }
 
-    CalendarEvent.create(user, event)
-    .then(res => {
-      info.view.calendar.addEvent({...event, _id: res._id})
-    })
+    let data = await CalendarEvent.create(user, event)
+    if ('error' in data) {
+      console.log(data.error)
+    } else {
+      info.view.calendar.addEvent({...event, _id: data.event._id})
+    }
     info.view.calendar.unselect()
 
     setIsOpen(false)
@@ -65,11 +69,11 @@ export default function Calendar() {
   async function updateEvent({ event, oldEvent, revert }) {
     if (!isUserLoggedIn) return
 
-    if (event.extendedProps.user !== user.user._id) {
-      alert("Este evento no es tuyo, no puedes modificarlo")
-      revert()
-      return
-    }
+    // if (event.extendedProps.user !== user.user._id) {
+    //   alert("Este evento no es tuyo, no puedes modificarlo")
+    //   revert()
+    //   return
+    // }
 
     let changes = {}
     if (event.start !== oldEvent.start) changes["start"] = event.start
@@ -78,16 +82,22 @@ export default function Calendar() {
     if (event.endStr !== oldEvent.endStr) changes["endStr"] = event.endStr
     if (event.title !== oldEvent.title) changes["title"] = event.title
 
-    await CalendarEvent.update(user, event.extendedProps._id, changes)
+    let data = await CalendarEvent.update(user, event.extendedProps._id, changes)
+    if ('error' in data) {
+      console.log(data.error)
+      revert()
+    }
   }
 
-  function handleEventClick(clickInfo) {
+  async function handleEventClick(clickInfo) {
     if (!isUserLoggedIn) return alert("Debes ingresar para modificar tus eventos")
-    if (clickInfo.event.extendedProps.user !== user.user._id)
-      return alert("Este evento fue creado por otro usuario, no tienes permiso para modificarlo.")
-    if (confirm(`Are you sure you want to delete the event ${clickInfo.event.title} created by ${clickInfo.event.extendedProps.name}`)) {
-      CalendarEvent.delete(user, clickInfo.event.extendedProps._id)
-      clickInfo.event.remove()
+    if (confirm(`Estás seguro de que quieres eliminar el evento ${clickInfo.event.title}?`)) {
+      let data = await CalendarEvent.delete(user, clickInfo.event.extendedProps._id)
+      if ('error' in data) {
+        console.log(data)
+      } else {
+        clickInfo.event.remove()
+      }
     }
   }
 

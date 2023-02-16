@@ -7,10 +7,9 @@ export const CalendarEvent = {
           'Content-Type': 'application/json'
         }
       })
-      const data = await res.json()
-      return data.results
+      return await res.json()
     } catch (error) {
-      console.log(error)
+      return error
     }
   },
 
@@ -25,10 +24,9 @@ export const CalendarEvent = {
           'Authorization': `Bearer ${user.token}`
         }
       })
-      const data = await res.json()
-      return data
+      return await res.json()
     } catch (error) {
-      console.log(error)
+      return error
     }
   },
 
@@ -43,10 +41,9 @@ export const CalendarEvent = {
           'Authorization': `Bearer ${user.token}`
         }
       })
-      const data = await res.json()
-      return data
+      return await res.json()
     } catch (error) {
-      console.log(error)
+      return error
     }
   },
 
@@ -60,10 +57,9 @@ export const CalendarEvent = {
           'Authorization': `Bearer ${user.token}`
         }
       })
-      const data = await res.json()
-      return data
+      return await res.json()
     } catch (error) {
-      console.log(error)
+      return error
     }
   }
 }
