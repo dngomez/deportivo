@@ -1,7 +1,7 @@
 import React from "react"
 import { motion } from "framer-motion"
 
-export default function AnimatedCharacters({ text, initialDelay, separation = 0.05 }) {
+export default function AnimatedCharacters({ text, initialDelay, separation = 0.05, style = {} }) {
   //  Split each word of props.text into an array
   const splitWords = text.split(" ")
 
@@ -20,7 +20,7 @@ export default function AnimatedCharacters({ text, initialDelay, separation = 0.
   });
 
   return (
-    <span className="logo-text">
+    <span className="logo-text" style={style}>
       {words.flat().map((element, index) => {
         return (
           <motion.span

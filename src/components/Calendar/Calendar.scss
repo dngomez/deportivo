@@ -70,3 +70,19 @@
     }
   }
 }
+
+@media only screen and (max-width: 951px) {
+  .calendar {
+    .fc {
+      .fc-toolbar-title {
+        font-size: 1rem;
+      }
+      .fc-button {
+        padding: 2px 3px;
+        font-size: 12px;
+        .fc-icon {
+        }
+      }
+    }
+  }
+}

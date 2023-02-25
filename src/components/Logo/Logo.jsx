@@ -10,15 +10,6 @@ export default function Logo() {
   return (
     <div className="logo">
       <div className="text">
-        {/* <div>
-          <AnimatedCharacters text={"Club Deportivo"} />
-        </div>
-        <div>
-          <AnimatedCharacters text={"y"} />
-        </div>
-        <div>
-          <AnimatedCharacters text={"Cultural AURA"} />
-        </div> */}
         <div className="top">
           <AnimatedCharacters text={"Club Deportivo y Cultural"} initialDelay={1} />
         </div>
