@@ -1,6 +1,7 @@
 .logo {
   display: flex;
   align-content: center;
+  cursor: pointer;
   > .svg-container {
     width: 100px;
     height: 76px;
@@ -15,9 +16,7 @@
   }
   
   > .text {
-    // padding: 24px 0;  // 1 line
-    padding: 17px 10px 17px 0;  // 2 lines
-    // padding: 10px 0; // 3 lines
+    padding: 17px 10px 17px 0;
 
     span {
       color: var(--accent);

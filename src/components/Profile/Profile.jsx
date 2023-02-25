@@ -1,5 +1,6 @@
-import { useContext } from "react"
+import { useContext, useEffect, useState } from "react"
 import { AuthContext } from "../Auth/AuthProvider"
+import { Buffer } from 'buffer'
 import "./Profile.scss"
 
 
@@ -7,20 +8,36 @@ function isoStringToLocale(date) {
   return `${date.substring(8,10)}-${date.substring(5,7)}-${date.substring(0,4)}`
 }
 
-export default function Home () {
-  let { user, logout, isUserLoggedIn } = useContext(AuthContext)
+export default function Profile() {
+  const { user, getImage } = useContext(AuthContext)
+  const [image, setImage] = useState("")
+
+  useEffect(() => {
+    getImage().then(data => {
+      setImage(`data:${data.image.contentType};base64,${Buffer.from(data.image.data.data.reduce((data, byte) => data + String.fromCharCode(byte), ''), 'ascii').toString('base64')}`)
+    })
+  }, [])
 
   return (
     <div className="profile">
-      <h3 style={{marginTop: 0}}>{`Hola ${user.user.first_name}`}</h3>
-      <p>Los datos que tenemos registrados en tu cuenta son los siguientes:</p>
-      <ul>
-        <li><span>Nombres:</span><span>{user.user.first_name}</span></li>
-        <li><span>Apellidos:</span><span>{user.user.last_name}</span></li>
-        <li><span>Correo:</span><span>{user.user.email}</span></li>
-        <li><span>Fecha de nacimiento:</span><span>{isoStringToLocale(user.user.birthday)}</span></li>
-        <li><span>Miembro del club deportivo:</span><span>{user.user.subscribed ? "Sí" : "No"}</span></li>
-      </ul>
+      <div className="image">
+      <img
+        src={image}
+        // onError={(e)=>{e.target.onerror = null; e.target.src=`/img/users/example.jpg`}}
+      />
+      </div>
+      <div className="info">
+        <span>Nombres:</span>
+        <span>{user.user.first_name}</span>
+        <span>Apellidos:</span>
+        <span>{user.user.last_name}</span>
+        <span>Correo:</span>
+        <span>{user.user.email}</span>
+        <span>Fecha de nacimiento:</span>
+        <span>{isoStringToLocale(user.user.birthday)}</span>
+        <span>Miembro del club deportivo:</span>
+        <span>{user.user.subscribed ? "Sí" : "No"}</span>
+      </div>
     </div>
   )
 }

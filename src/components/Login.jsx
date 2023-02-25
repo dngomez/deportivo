@@ -60,15 +60,14 @@ export default function Login() {
             <span className="material-icons button-icon">login</span>
             Ingresar
           </button>
-          <button className="button" onClick={() => navigate("/register")}>
-            <span className="material-icons button-icon">person_add</span>
-            Registrar
-          </button>
           <button className="button dismiss" onClick={() => navigate(from, { replace: true })}>
             <span className="material-icons button-icon">close</span>
             Cancelar
           </button>
         </div>
+        <span className="text-link">
+          Puedes registrarte haciendo click <a onClick={() => navigate("/register")}>aquí</a>
+        </span>
       </motion.div>
     </div>
   );

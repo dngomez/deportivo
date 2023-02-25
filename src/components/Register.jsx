@@ -1,5 +1,5 @@
 import { useContext, useReducer, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { ThemeContext } from "./Theme/ThemeProvider";
 import { motion } from "framer-motion";
 import { Authentication } from "../Helpers/Authentication";
@@ -68,6 +68,9 @@ export default function Register() {
     password_confirm_warning: false
   })
   const [loading, setLoading] = useState(false)
+
+  const location = useLocation()
+  const from = location.state?.from ?? "/";
 
   async function handleSubmit() {
     setLoading(true)
@@ -203,7 +206,7 @@ export default function Register() {
               <span className="material-icons button-icon">{(loading) ? "refresh" : "person_add"}</span>}
             Registrar
           </button>
-          <button className="button dismiss" onClick={() => navigate("/")}>
+          <button className="button dismiss" onClick={() => navigate(from, { replace: true })}>
             <span className="material-icons button-icon">close</span>
             Cancelar
           </button>

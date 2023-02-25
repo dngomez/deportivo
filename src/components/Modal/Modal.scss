@@ -24,8 +24,30 @@
         margin-right: 5px;
       }
 
+      > .text-link {
+        cursor: pointer;
+        text-align: center;
+        display: block;
+        margin: 10px 0;
+        font-size: 0.9rem;
+        color: var(--text-color);
+        transition: color 0.3s;
+        pointer-events: none;
+        > a {
+          color: var(--accent-faded);
+          transition: color 0.3s;
+          pointer-events: auto;
+          &:hover {
+            color: var(--accent);
+          }
+        }
+      }
+
       > .title {
         text-align: center;
+        display: block;
+        margin: 0;
+        padding: 5px 0;
       }
 
       > .form-row {
@@ -58,6 +80,7 @@
 
       > .footer {
         text-align: center;
+        margin-top: 5px;
         > .button {
           margin: 0 3px
         }

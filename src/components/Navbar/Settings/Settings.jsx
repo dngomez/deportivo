@@ -1,8 +1,6 @@
 import { motion } from 'framer-motion'
 import { useState, useContext, useRef, useEffect } from 'react'
-import { useNavigate, useLocation } from 'react-router-dom'
 import { ThemeContext } from '../../Theme/ThemeProvider'
-import { AuthContext } from '../../Auth/AuthProvider'
 
 const itemVariants = {
   open: {
@@ -16,12 +14,8 @@ const itemVariants = {
 export default function Settings() {
   const [isOpen, setIsOpen] = useState(false)
   const theme = useContext(ThemeContext)
-  const { user, logout, isUserLoggedIn } = useContext(AuthContext)
 
-  const settingsRef = useRef(null);
-
-  const navigate = useNavigate()
-  const location = useLocation()
+  const settingsRef = useRef(null)
   
   useEffect(() => {
     function handleClickOutside(event) {
@@ -34,42 +28,6 @@ export default function Settings() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [settingsRef])
-
-  let userButtons = []
-  if (isUserLoggedIn) {
-    userButtons.push(
-      <motion.li
-        key={`button1`}
-        variants={itemVariants}
-        onClick={() => logout()}
-      >
-        <span className="material-icons dropdown-icon">logout</span>
-        Logout
-      </motion.li>
-    )
-  } else {
-    userButtons.push(
-      <motion.li
-        key={`button1`}
-        variants={itemVariants}
-        onClick={() => navigate("/login", {state: {from: location.pathname}})}
-      >
-        <span className="material-icons dropdown-icon">login</span>
-        Login
-      </motion.li>
-    )
-  }
-  
-  userButtons.push(
-    <motion.li
-      key={`button2`}
-      variants={itemVariants}
-      onClick={() => navigate("/register", {state: {from: location.pathname}})}
-    >
-      <span className="material-icons dropdown-icon">person_add</span>
-      Registrarse
-    </motion.li>
-  )
 
   return (
     <div ref={settingsRef} className="link-text settings">
@@ -110,11 +68,6 @@ export default function Settings() {
           <span className="material-icons dropdown-icon">{(theme.theme === "dark") ? "light_mode" : "dark_mode"}</span>
           {(theme.theme === "dark") ? "Modo claro" : "Modo oscuro"}
         </motion.li>
-        {userButtons}
-        {/* <motion.li variants={itemVariants}>Item 2</motion.li>
-        <motion.li variants={itemVariants}>Item 3</motion.li>
-        <motion.li variants={itemVariants}>Item 4</motion.li>
-        <motion.li variants={itemVariants}>Item 5</motion.li> */}
       </motion.ul>
     </div>
   )

@@ -65,6 +65,26 @@ export const Authentication = {
     }
   },
 
+  async getImage(user) {
+    try {
+      const res = await fetch(`/api/user/image?_id=${user.user._id}`, {
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${user.token}`
+        }
+      })
+
+      if (res.status === 200) {
+        return await res.json()
+      } else {
+        this.logout()
+      }
+    } catch (error) {
+      return error
+    }
+  },
+
   async create(user) {
     try {
       const res = await fetch('/api/user/create', {
@@ -77,11 +97,9 @@ export const Authentication = {
         }
       })
 
-      const data = await res.json()
-      return data
-
+      return await res.json()
     } catch (error) {
-      console.log(error)
+      return error
     }
   }
 }

@@ -101,6 +101,7 @@
       position: relative;
       display: inline-block;
       color: transparent;
+      cursor: pointer;
       margin-top: 52px;
 
       a {
@@ -182,6 +183,102 @@
         position: absolute;
         left: 9px;
         top: 5px;
+      }
+    }
+  }
+}
+
+.mobile-menu {
+  display: none;
+}
+
+@media only screen and (max-width: 951px) {
+  .navbar {
+    display: none;
+  }
+
+  .mobile-menu {
+    display: block;
+    text-align: center;
+
+    > .background {
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      width: 100vw;
+      background: var(--navbar-toggle-color);
+
+      > ul {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+
+        > li {
+          display: flex;
+          justify-content: center;
+
+          a {
+            height: 40px;
+            color: var(--text-color-faded);
+            text-decoration: none;
+            display: inline-block;
+            background-color: transparent;
+            border: inherit;
+            cursor: pointer;
+          }
+
+          > .top-link {
+            padding: 8px 13px;
+            z-index: 2;
+          }
+    
+          .link-text {
+            margin-left: 15px;
+            position: relative;
+            &.active {
+              .link-label, .link-icon {
+                color: var(--accent);
+              }
+            }
+    
+            &.transparent {
+              .link-label, .link-icon {
+                color: transparent;
+              }
+            }
+          }
+    
+          .link-label {
+            color: var(--text-color-faded);
+            transition: color 0.5s;
+            display: inline;
+            margin-left: 10px;
+          }
+    
+          .link-icon {
+            color: var(--text-color-faded);
+            transition: color 0.5s;
+            position: absolute;
+            left: -18px;
+            top: -3px;
+          }
+
+        }
+      }
+    }
+
+    > .menu-toggle {
+      position: relative;
+      z-index: 3;
+      background-color: transparent;
+      padding: 10px 10px 0 10px;
+      border: 0;
+      cursor: pointer;
+
+      > svg {
+        stroke: var(--accent);
       }
     }
   }

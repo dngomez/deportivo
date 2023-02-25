@@ -35,13 +35,21 @@ export default function AuthProvider ({ children }) {
     return true
   }
 
+  async function getImage() {
+    if (isUserLoggedIn) {
+      return await Authentication.getImage(user)
+    } else {
+      return `/img/users/example-${user.gender}.jpg`
+    } 
+  }
+
   useEffect(() => {
     if (isUserLoggedIn) {
       isTokenValid()
     }
   }, [location, children, user])
 
-  let value = { user, login, logout, isTokenValid, isUserLoggedIn };
+  let value = { user, login, logout, isTokenValid, getImage, isUserLoggedIn };
 
   return (
     <AuthContext.Provider value={value}>

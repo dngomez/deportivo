@@ -1,10 +1,11 @@
-import React from "react";
+import React, { useId } from "react";
 import { motion } from "framer-motion";
 import AnimatedCharacters from "./AnimatedText";
 import "./Logo.scss"
 
 export default function Logo() {
-  let logoText = "Club Deportivo y Cultural AURA"
+  const logoText = "Club Deportivo y Cultural AURA"
+  const logoId = useId()
 
   return (
     <div className="logo">
@@ -65,76 +66,76 @@ export default function Logo() {
             <path className="logo-brightness" d="M18.1,14.9c-0.1,0-0.6,0.1-1.5,0.4c-0.9,0.3-1.8,0.9-2.7,1.7c0,0-0.1-0.3-0.3-0.7 c-0.2-0.5-0.1-0.9,0.1-1.4c0.4-0.7,0.4-1.2,0.2-1.5c-0.2-0.3-0.4-0.4-0.5-0.4c1.3-1.6,5.2-3.5,11.6-5.6c-0.1,0-1.4,0.2-3.7,0.8 c-2.3,0.6-4.8,1.6-7.6,3c-0.1-0.3,0.1-0.9,0.6-1.6c0.5-0.7,1.8-1.1,3.8-1.2c-0.3-0.2-1.2-0.2-2.9-0.1c-1.7,0.1-2.7,1.4-3,3.8 c0,0.1,0,0.8,0.2,2.1c0.2,1.3,0.7,2.5,1.5,3.6c0.1-0.1,0.5-0.6,1.4-1.4C16.3,15.8,17.2,15.2,18.1,14.9"/>
             <path className="logo-brightness" d="M16.5,20.5c0,0.1,0.2,0.6,0.5,1.5c0.3,0.9,0.7,1.8,1.3,2.6c-0.1-0.1-0.3-1-0.5-2.4 c-0.3-1.5-0.1-2.8,0.5-3.9c0,0-0.3,0.2-0.7,0.6C17.1,19.3,16.8,19.8,16.5,20.5"/>
 
-            <clipPath id="air1">
+            <clipPath id={`${logoId}-air1`}>
               <path d="M7.4,73.7c0-0.2,1.3-0.9,4-2c2.7-1.2,6.6-1.7,12-1.6c-0.1,0-0.9,0.2-2.3,0.5 c-1.5,0.3-3.1,0.9-4.9,1.5c-1.8,0.7-3.2,1.5-4.3,2.6c0,0.1-0.3,0.1-1,0.1C10.1,74.8,9,74.4,7.4,73.7"/>
             </clipPath>
-            <clipPath id="air2">
+            <clipPath id={`${logoId}-air2`}>
               <path d="M24,48.4c0-0.1,0.7-1.2,2.2-3.2c1.5-2,3.9-4,7.2-6.1c3.3-2.1,7.7-3.3,13.1-3.7 c-0.1,0-1.5,0.4-4,1.2c-2.6,0.8-5.6,2.2-9,4.1C30,42.7,26.9,45.2,24,48.4"/>
             </clipPath>
-            <clipPath id="air3">
+            <clipPath id={`${logoId}-air3`}>
               <path d="M46.1,40.8c0.1,0,0.6,0.6,1.6,1.8c1,1.1,1.7,2.5,2.3,4.2c0-0.1,0.6-0.9,1.7-2.3 c1.1-1.5,2.6-3,4.5-4.7c1.9-1.7,3.9-2.9,6.2-3.6c-0.2,0-1.6,0.5-4.3,1.6c-2.7,1.1-5.4,2.9-8.1,5.3C49.7,42.9,48.4,42.1,46.1,40.8"/>
             </clipPath>
-            <clipPath id="air4">
+            <clipPath id={`${logoId}-air4`}>
               <path d="M29.1,15.6c0.1,0,0.5,0,1.2,0c0.7,0,1.3,0.3,1.8,0.7c0-0.3,3.1-1.2,9.4-2.8 c6.3-1.6,16.1-2.3,29.2-2.1c-0.3-0.1-2.9-0.3-7.9-0.7c-5-0.4-10.7-0.3-17.2,0.2C39.1,11.5,33.6,13,29.1,15.6"/>
             </clipPath>
-            <clipPath id="air5">
+            <clipPath id={`${logoId}-air5`}>
               <path d="M70.6,39.1c-0.1-0.1,1-0.8,3.2-2.2c2.2-1.3,6-2.7,11.5-3.9c5.5-1.3,13.1-1.8,22.8-1.7 c-0.3-0.1-2.9-0.3-7.9-0.6c-5-0.3-10.7,0.2-17,1.3c-6.4,1.1-11.7,3.7-16,7.8c0.1,0,0.5-0.2,1.2-0.4C69,39.1,69.8,39,70.6,39.1"/>
             </clipPath>
-            <clipPath id="air6">
+            <clipPath id={`${logoId}-air6`}>
               <path d="M24,54.3c0-0.2-0.2,0.7-0.7,2.7c-0.1-0.1,1.8-0.5,5.5-1.1c3.8-0.6,9.8-0.9,18.3-0.8 c8.4,0.1,19.6,1.2,33.6,3.2c-0.2-0.1-3.2-0.7-9-1.8c-5.8-1.1-13-2-21.6-2.7C41.5,53.1,32.8,53.2,24,54.3"/>
             </clipPath>
-            <clipPath id="air7">
+            <clipPath id={`${logoId}-air7`}>
               <path d="M19.8,65.8l-0.9,2c0.1-0.1,2.4-0.6,6.8-1.4c4.4-0.8,10.1-1.4,17.2-1.8c7.1-0.4,14.6,0,22.6,1.2 c-0.2-0.1-2.5-0.5-7.1-1.2c-4.6-0.7-10.3-1.1-17.3-1.2C34.2,63.3,27.1,64.1,19.8,65.8"/>
             </clipPath>
-            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath="url(#air1)"/>
-            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath="url(#air2)"/>
-            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath="url(#air3)"/>
-            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath="url(#air4)"/>
-            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath="url(#air5)"/>
-            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath="url(#air6)"/>
-            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath="url(#air7)"/>
+            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath={`url(#${logoId}-air1)`}/>
+            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath={`url(#${logoId}-air2)`}/>
+            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath={`url(#${logoId}-air3)`}/>
+            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath={`url(#${logoId}-air4)`}/>
+            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath={`url(#${logoId}-air5)`}/>
+            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath={`url(#${logoId}-air6)`}/>
+            <path className="pen delay2" d="M 5,32 L 103,32" stroke="var(--logo-air-color)" strokeWidth="100" clipPath={`url(#${logoId}-air7)`}/>
             
-            <clipPath id="shadow1">
+            <clipPath id={`${logoId}-shadow1`}>
               <path d="M28.6,47.8c0.1-0.1,1-0.4,2.7-0.8c1.7-0.4,3.7-0.1,6,0.8c-0.2-0.1-0.8-0.9-1.7-2.3 c-0.9-1.4-1-2.7-0.3-3.9c-0.2,0-1,0.4-2.7,1.3C31,43.8,29.7,45.4,28.6,47.8"/>
             </clipPath>
-            <clipPath id="shadow2">
+            <clipPath id={`${logoId}-shadow2`}>
               <path d="M26.5,22.3c0.1-0.2,0.9-0.5,2.3-1.1c1.4-0.6,2.8-0.5,4.3,0.5c0.1-0.1,0.6-0.1,1.6-0.1 c1,0,2.1,0.4,3.3,1.3c0.1-0.1-0.2-0.5-0.7-1.2c-0.6-0.7-1.8-1-3.8-1c0-0.2-0.7-0.4-2-0.7C30.2,19.5,28.5,20.4,26.5,22.3"/>
             </clipPath>
-            <clipPath id="shadow3">
+            <clipPath id={`${logoId}-shadow3`}>
               <path d="M17.6,61.6c0-0.2,1.6-0.9,4.6-2.2c3.1-1.3,7.4-2.2,13-2.7c0-0.1-1.3-0.1-3.9-0.1 c-2.6,0-6.2,0.6-11,1.7c0.1,0,0.4-0.6,1-1.7c0.6-1.1,0.9-2.3,1-3.8c0-0.1,1.1-0.7,3.2-1.6c2.1-1,4.9-1.7,8.4-2.2 c-0.1-0.1-1.4-0.1-3.9,0.1c-2.5,0.2-5.7,1-9.6,2.5c0.1,0.1,0.2,1,0.1,2.9C20.5,56.4,19.5,58.8,17.6,61.6"/>
             </clipPath>
-            <clipPath id="shadow4">
+            <clipPath id={`${logoId}-shadow4`}>
               <path d="M50,29.1c0.2,0.3,0.5,0.9,1,1.9c0.1,0,1,0.2,2.8,0.8c1.8,0.6,4,1.7,6.6,3.3 c0.2-0.1,1.4-0.1,3.5-0.2c2.1-0.1,3.9,0.3,5.4,1.2c0-0.2,1.2-1.2,3.8-2.9c2.6-1.7,6.7-2.8,12.4-3.4c-0.2,0-1.8,0-4.7,0 c-2.9,0-6-0.2-9.2-0.4c-3.2-0.2-5.2-0.7-6.1-1.3c-0.9-0.6,0.6-1.5,4.5-2.6c-0.2,0-1.2,0.1-2.9,0.2c-1.8,0.1-3.2,0-4.3-0.3 c-1.1-0.3-0.8-1.1,0.9-2.3c-0.1,0-1.5,0.4-4.1,1.4C56.9,25.4,53.7,27,50,29.1"/>
             </clipPath>
-            <clipPath id="shadow5">
+            <clipPath id={`${logoId}-shadow5`}>
               <path d="M33,16.6c0.2-0.1,1.5,0,3.6,0.2c2.2,0.2,3.9,0.9,5.1,2.1c-0.1-0.2,0.7-1,2.3-2.6 c1.6-1.5,4.4-2.6,8.6-3.2c-0.2,0-2.3,0.1-6.3,0.6C42.3,14.2,37.9,15.2,33,16.6"/>
             </clipPath>
-            <clipPath id="shadow6">
+            <clipPath id={`${logoId}-shadow6`}>
               <path d="M48.6,25.8c0,0-0.3-0.3-0.8-0.7c-0.5-0.4-0.9-0.7-1.2-0.8c0-0.1,0.9-0.8,2.5-2.1 c1.6-1.2,3.7-2.2,6.3-2.8c-0.1,0-0.8,0.4-1.8,1c-1.1,0.6-1.8,1.2-2.2,1.8c-0.3,0.6,0.5,0.9,2.6,0.9c-0.2,0.1-1,0.4-2.5,1 C50,24.8,49,25.3,48.6,25.8"/>
             </clipPath>
-            <clipPath id="shadow7">
+            <clipPath id={`${logoId}-shadow7`}>
               <path d="M27.2,9.6c0.1-0.1,0.8-0.4,2.1-0.9c1.3-0.5,2.7-0.9,4.4-1c-0.1,0-0.6,0-1.6-0.1 c-1,0-1.8-0.2-2.6-0.3c-0.8-0.1-0.9-0.4-0.3-0.6c-0.1-0.1-0.4,0-1,0.3C27.5,7.3,27.2,8.1,27.2,9.6"/>
             </clipPath>
-            <clipPath id="shadow8">
+            <clipPath id={`${logoId}-shadow8`}>
               <path d="M78.6,39.2c0.3-0.1,1.3,0.2,3,0.9c1.7,0.6,2.4,2.1,2.2,4.3c0-0.1,1.2-0.4,3.5-0.8 c2.3-0.5,5.6-0.5,10.1,0c-0.1,0-1.1-0.3-2.8-0.8c-1.7-0.5-3.3-1.2-4.9-2c-1.6-0.8-2.3-1.6-2-2.3c0.2-0.8,2.2-1.4,5.9-1.9 c-0.2-0.2-1.8-0.2-4.9-0.2C85.5,36.3,82.2,37.2,78.6,39.2"/>
             </clipPath>
-            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath="url(#shadow1)"/>
-            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath="url(#shadow2)"/>
-            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath="url(#shadow3)"/>
-            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath="url(#shadow4)"/>
-            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath="url(#shadow5)"/>
-            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath="url(#shadow6)"/>
-            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath="url(#shadow7)"/>
-            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath="url(#shadow8)"/>
+            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath={`url(#${logoId}-shadow1)`}/>
+            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath={`url(#${logoId}-shadow2)`}/>
+            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath={`url(#${logoId}-shadow3)`}/>
+            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath={`url(#${logoId}-shadow4)`}/>
+            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath={`url(#${logoId}-shadow5)`}/>
+            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath={`url(#${logoId}-shadow6)`}/>
+            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath={`url(#${logoId}-shadow7)`}/>
+            <path className="pen delay1" d="M 5,32 L 103,32" stroke="var(--logo-air2-color)" strokeWidth="100" clipPath={`url(#${logoId}-shadow8)`}/>
 
-            <clipPath id="bolt1">
+            <clipPath id={`${logoId}-bolt1`}>
               <path d="M15.7,31.6c0,0.1,1.2,0.6,3.4,1.3c2.3,0.7,5.5,1,9.7,0.8c4.2-0.2,9.3-1.7,15.1-4.5l1,1.5 c-0.2,0.2-2.2,1.2-6.1,2.9c-3.8,1.7-8,3-12.7,3.8c-4.7,0.8-8.4,0-11.2-2.5L15.7,31.6"/>
             </clipPath>
-            <clipPath id="bolt2">
+            <clipPath id={`${logoId}-bolt2`}>
               <path d="M48.6,27.1l1,1.4c0.2-0.2,2.5-1.4,6.8-3.6c4.3-2.2,9.4-4.4,15.3-6.5c5.9-2.1,11.3-3.2,16.3-3.1 c0-0.1-1.6-0.1-4.7-0.1c-3.1,0-7.6,0.9-13.5,2.5C64,19.4,56.9,22.5,48.6,27.1"/>
             </clipPath>
-            <path className="pen delay3" d="M 5,32 L 103,32" stroke="var(--logo-bolt-color)" strokeWidth="100" clipPath="url(#bolt1)"/>
-            <path className="pen delay3" d="M 5,32 L 103,32" stroke="var(--logo-bolt-color)" strokeWidth="100" clipPath="url(#bolt2)"/>
+            <path className="pen delay3" d="M 5,32 L 103,32" stroke="var(--logo-bolt-color)" strokeWidth="100" clipPath={`url(#${logoId}-bolt1)`}/>
+            <path className="pen delay3" d="M 5,32 L 103,32" stroke="var(--logo-bolt-color)" strokeWidth="100" clipPath={`url(#${logoId}-bolt2)`}/>
           </g>
         </svg>
       </motion.div>

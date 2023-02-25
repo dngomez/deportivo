@@ -79,22 +79,21 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
   if (!isUserLoggedIn) {
     return (
       <>
-        <h3 className="title">Debes ingresar a tu sesión antes de crear un evento.</h3>
-        <h3 className="title">Si aún no tienes un usuario, puedes registrarte en la página web utilizando tu correo electrónico.</h3>
+        <span className="title">Debes ingresar a tu sesión antes de crear un evento.</span>
+        <span className="title">Si aún no tienes un usuario, puedes registrarte en la página web utilizando tu correo electrónico.</span>
         <div className="footer">
           <button className="button" onClick={() => navigate("/login", {state: {from: location.pathname}})}>
             <span className="material-icons button-icon">login</span>
             Ingresar
-          </button>
-          <button className="button" onClick={() => navigate("/register", {state: {from: location.pathname}})}>
-            <span className="material-icons button-icon">person_add</span>
-            Registrar
           </button>
           <button className="button dismiss" onClick={() => setIsOpen(false)}>
             <span className="material-icons button-icon">close</span>
             Cancelar
           </button>
         </div>
+        <span className="text-link">
+          Puedes registrarte haciendo click <a onClick={() => navigate("/register", {state: {from: location.pathname}})}>aquí</a>
+        </span>
       </>
     )
   }

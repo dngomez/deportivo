@@ -38,6 +38,21 @@
       }
     }
 
+    > .text-link {
+      cursor: pointer;
+      display: block;
+      margin: 10px 0;
+      font-size: 0.9rem;
+      color: var(--text-color);
+      > a {
+        color: var(--accent-faded);
+        transition: color 0.3s;
+        &:hover {
+          color: var(--accent);
+        }
+      }
+    }
+
     .field {
       display: flex;
       background-color: var(--input-bg);
