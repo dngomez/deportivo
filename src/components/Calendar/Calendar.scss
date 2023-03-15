@@ -53,6 +53,10 @@
     overflow: hidden;
   }
 
+  .fc-daygrid-event {
+    z-index: inherit;
+  }
+
 
   .calendar-event {
     position: relative;
