@@ -11,10 +11,12 @@ import NewEvent from './NewEvent'
 import EventContent from './EventContent'
 import { CalendarEvent } from "../../Helpers/CalendarEvent"
 import "./Calendar.scss"
+import { useNavigate, useParams } from 'react-router-dom'
 
 
 export default function Calendar() {
-  const [weekendsVisible, setWeekendsVisible] = useState(true)
+  const { viewType, date } = useParams()
+  const navigate = useNavigate()
   const [currentEvents, setCurrentEvents] = useState([])
   const [isOpen, setIsOpen] = useState(false)
   const [temporalInfo, setTemporalInfo] = useState({})
@@ -30,9 +32,24 @@ export default function Calendar() {
     })
   }, [])
 
+  useEffect(() => {
+    fullcalendar.current.getApi().render()
+  }, [currentEvents])
+
+  useEffect(() => {
+    let selectedDate = date ?? new Date()
+    fullcalendar.current.getApi().gotoDate(selectedDate)
+    if (viewType === "day") {
+      fullcalendar.current.getApi().changeView("timeGridDay", selectedDate)
+    } else {
+      fullcalendar.current.getApi().changeView("dayGridMonth", selectedDate)
+    }
+  }, [viewType, date])
+
   function handleDateSelect(selectInfo) {
     if (fullcalendar.current.getApi().view.type === "dayGridMonth") {
-      fullcalendar.current.getApi().changeView("timeGridWeek", selectInfo.start)
+      navigate(`/calendar/day/${selectInfo.startStr}`)
+      fullcalendar.current.getApi().changeView("timeGridDay", selectInfo.start)
       return
     }
 
@@ -51,7 +68,7 @@ export default function Calendar() {
       endDate: info.end,
       allDay: info.allDay,
       user: user.user._id,
-      name: `${user.user.first_name} ${user.user.last_name}`,
+      name: `${user.user.first_name.split(' ')[0]} ${user.user.last_name.split(' ')[0]}`,
       others: info.others
     }
 
@@ -68,12 +85,6 @@ export default function Calendar() {
 
   async function updateEvent({ event, oldEvent, revert }) {
     if (!isUserLoggedIn) return
-
-    // if (event.extendedProps.user !== user.user._id) {
-    //   alert("Este evento no es tuyo, no puedes modificarlo")
-    //   revert()
-    //   return
-    // }
 
     let changes = {}
     if (event.start !== oldEvent.start) changes["start"] = event.start
@@ -102,8 +113,6 @@ export default function Calendar() {
   }
 
   function viewChange(event) {
-    if (event.view.type === "dayGridMonth") setWeekendsVisible(true)
-    else if (event.view.type === "timeGridWeek") setWeekendsVisible(false)
   }
 
   return (
@@ -130,7 +139,8 @@ export default function Calendar() {
         eventOverlap={false}
         slotMinTime={"08:00:00"}
         slotMaxTime={"23:59:59"}
-        weekends={weekendsVisible}
+        weekends={true}
+        longPressDelay={500}
         // initialEvents={currentEvents} // alternatively, use the `events` setting to fetch from a feed
         events={currentEvents}
         select={handleDateSelect}

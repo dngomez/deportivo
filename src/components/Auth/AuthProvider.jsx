@@ -35,6 +35,10 @@ export default function AuthProvider ({ children }) {
     return true
   }
 
+  function isAllowed(role) {
+    return Authentication.compareRoles(role)
+  }
+
   async function getImage() {
     if (isUserLoggedIn) {
       return await Authentication.getImage(user)
@@ -49,7 +53,15 @@ export default function AuthProvider ({ children }) {
     }
   }, [location, children, user])
 
-  let value = { user, login, logout, isTokenValid, getImage, isUserLoggedIn };
+  let value = {
+    user,
+    login,
+    logout,
+    isTokenValid,
+    getImage,
+    isAllowed,
+    isUserLoggedIn
+  }
 
   return (
     <AuthContext.Provider value={value}>

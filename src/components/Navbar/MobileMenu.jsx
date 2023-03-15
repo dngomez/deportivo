@@ -40,17 +40,29 @@ export default function MobileMenu({ links }) {
   const [isOpen, toggleOpen] = useCycle(false, true)
   const location = useLocation()
   const navigate = useNavigate()
-  const { isUserLoggedIn } = useContext(AuthContext)
+  const { isAllowed, isUserLoggedIn } = useContext(AuthContext)
   const { theme, toggleTheme } = useContext(ThemeContext)
   const containerRef = useRef(null)
 
   let navLinks = []
   for (let i=0; i<links.length; i++) {
-    if (links[i].showAlways || links[i].loggedOnly && isUserLoggedIn || !links[i].loggedOnly && !isUserLoggedIn) {
+    let shouldBeDisplayed = false
+    if (links[i].permissionRequired === "None") {
+      shouldBeDisplayed = true
+    } else if (links[i].permissionRequired === "Unlogged") {
+      if (!isUserLoggedIn)
+        shouldBeDisplayed = true
+    } else {
+      if (isUserLoggedIn) {
+        shouldBeDisplayed = isAllowed(links[i].permissionRequired)
+      }
+    }
+
+    if (shouldBeDisplayed) {
       let linkContent = (
         <div className="navbar-link">
           <div className="top-link">
-            <div className={(location.pathname === links[i].to) ? "link-text active":"link-text"}>
+            <div className={(`/${location.pathname.split("/")[1]}` === links[i].to) ? "link-text active":"link-text"}>
               <span className="material-icons link-icon">{links[i].icon}</span>
               <span className="link-label">{links[i].name}</span>
             </div>

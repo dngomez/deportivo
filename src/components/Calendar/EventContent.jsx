@@ -33,6 +33,7 @@ export default function EventContent(eventInfo) {
       >
         <b>{eventInfo.timeText}</b>
         <span className="inline-event">{eventInfo.event.title}</span>
+        {eventInfo.view.type === "dayGridMonth" && <br />}
         <motion.span className="inline-event"
           variants={{
             open: {
@@ -45,6 +46,7 @@ export default function EventContent(eventInfo) {
         >[{eventInfo.event.extendedProps.name}]</motion.span>
         <motion.div
           className="hidden-info"
+          style={{marginTop: (eventInfo.view.type === "dayGridMonth") ? "-15px":"0"}}
           variants={{
             open: {
               opacity: 1,

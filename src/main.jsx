@@ -11,6 +11,7 @@ import Calendar from './components/Calendar/Calendar'
 import Profile from './components/Profile/Profile'
 import Layout from './components/Layout'
 import Home from './components/Home'
+import Users from './components/Users/Users'
 import Login from './components/Login'
 import Register from './components/Register'
 import './index.scss'
@@ -25,8 +26,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
           <Routes>
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
-              <Route path="calendar" element={<Calendar />} />
+              <Route path="calendar/:viewType?/:date?" element={<Calendar />} />
               <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>} />
+              <Route path="users" element={<RequireAuth><Users /></RequireAuth>} />
               <Route path="link2" element={null} />
               <Route path="link3" element={null} />
               <Route path="link4" element={null} />

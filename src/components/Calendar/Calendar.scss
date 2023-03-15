@@ -2,6 +2,10 @@
   color: var(--text-color);
   height: calc(100vh - 86px - 20px);
 
+  .hidden-info {
+    background-color: var(--bg-color);
+  }
+
   .fc {
     font-size: 16px;
 
@@ -39,7 +43,16 @@
         text-transform: uppercase;
       }
     }
+
+    .fc-daygrid-more-link {
+      z-index: inherit;
+    }
   }
+
+  .fc-daygrid-day-frame {
+    overflow: hidden;
+  }
+
 
   .calendar-event {
     position: relative;
@@ -68,6 +81,14 @@
         margin-bottom: 2px;
       }
     }
+  }
+
+  .fc-timegrid-event-harness {
+    z-index: initial !important;
+  }
+
+  .fc-event-main {
+    z-index: initial !important;
   }
 }
 

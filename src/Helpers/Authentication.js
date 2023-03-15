@@ -8,6 +8,32 @@ export const Authentication = {
     }
   },
 
+  compareRoles(role) {
+    let userRole = this.getUser()?.user?.role
+    let userLevel = this.getPermissionLevel(userRole)
+    let requiredLevel = this.getPermissionLevel(role)
+    return (userLevel >= requiredLevel)
+  },
+
+  getPermissionLevel(role) {
+    switch (role) {
+      case "Reader":
+        return 0
+      case "User":
+        return 1
+      case "Member":
+        return 2
+      case "Coordinator":
+        return 3
+      case "Staff":
+        return 4
+      case "Admin":
+        return 5
+      default:
+        return 0
+    }
+  },
+
   async login(email, password) {
     try {
       const res = await fetch(`/api/user/login`, {
