@@ -1,6 +1,7 @@
 .logo {
   display: flex;
   align-content: center;
+  overflow: hidden;
   cursor: pointer;
   > .svg-container {
     width: 100px;
