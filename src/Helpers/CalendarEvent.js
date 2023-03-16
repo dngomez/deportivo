@@ -63,3 +63,7 @@ export const CalendarEvent = {
     }
   }
 }
+
+export function getTimeFromStr(str) {
+  return str.split("T")[1].substring(0, 5)
+}

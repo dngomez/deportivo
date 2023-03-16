@@ -54,30 +54,81 @@
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 5px;
-        > .field {
-          display: grid;
-          grid-template-rows: repeat(2, 26px);
-          margin-bottom: 10px;
-          > label {
-            padding-left: 10px;
-          }
-          > input {
-            background-color: var(--input-bg);
-            border-radius: 13px;
-            border: 1px solid;
-            border-color: transparent;
-            padding: 5px 10px;
-            transition: border-color 0.5s, color 0.5s;
-            color: var(--input-faded);
-            &:focus-visible, &:focus, &:active {
-              border-color: var(--accent);
-              outline: none;
-              color: var(--text-color);
-            }
-          }
+      }
+
+      .textarea {
+        max-width: calc(100% - 22px);
+        min-width: calc(100% - 22px);
+        background-color: var(--input-bg);
+        border-radius: 13px;
+        border: 1px solid;
+        border-color: transparent;
+        padding: 5px 10px;
+        transition: border-color 0.5s, color 0.5s;
+        color: var(--input-faded);
+        &:focus-visible, &:focus, &:active {
+          border-color: var(--accent);
+          outline: none;
+          color: var(--text-color);
         }
       }
 
+      .field {
+        display: grid;
+        grid-template-rows: repeat(2, 26px);
+        margin-bottom: 10px;
+      }
+
+      .single-field {
+        display: grid;
+        grid-template-rows: 26px;
+        margin-bottom: 10px;
+      }
+
+      label {
+        padding-left: 10px;
+      }
+
+      input {
+        background-color: var(--input-bg);
+        border-radius: 13px;
+        border: 1px solid;
+        border-color: transparent;
+        padding: 5px 10px;
+        transition: border-color 0.5s, color 0.5s;
+        color: var(--input-faded);
+        &:focus-visible, &:focus, &:active {
+          border-color: var(--accent);
+          outline: none;
+          color: var(--text-color);
+        }
+      }
+
+      .dropdown {
+        padding: 0;
+        > .dropdown-button {
+          width: 100%;
+          background-color: var(--input-bg);
+          border-radius: 13px;
+          border: 1px solid;
+          border-color: transparent;
+          padding: 5px 10px;
+          transition: border-color 0.5s, color 0.5s;
+          color: var(--input-faded);
+          &:focus-visible, &:focus, &:active {
+            border-color: var(--accent);
+            outline: none;
+            color: var(--text-color);
+          }
+
+          > .dropdown-icon {
+            position: absolute;
+            right: 10px;
+            top: 2px;
+          }
+        }
+      }
+      
       > .footer {
         text-align: center;
         margin-top: 5px;

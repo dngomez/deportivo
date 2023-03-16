@@ -1,5 +1,6 @@
-import { useReducer } from "react"
+import { useEffect, useReducer } from "react"
 import { useNavigate, useLocation } from "react-router-dom"
+import Dropdown from "../Dropdown/Dropdown"
 
 function reducer(state, action) {
   switch (action.type) {
@@ -20,18 +21,37 @@ function reducer(state, action) {
       auxOthers[action.person] = {name: action.name}
       return {...state, others: auxOthers }
 
+    case "set_description":
+      return {...state, description: action.description}
+
     default:
       return {...state}
   }
 }
+
+const EVENT_OPTIONS = [
+  { name: "Fútbol", icon: "sports_soccer" },
+  { name: "Baloncesto", icon: "sports_basketball" },
+  { name: "Patines", icon: "roller_skating" },
+  { name: "Tenis", icon: "sports_tennis" },
+  { name: "Baile", icon: "sports_gymnastics" },
+  { name: "Béisbol", icon: "sports_baseball" },
+  { name: "Voleibol", icon: "sports_volleyball" },
+  { name: "Otro", icon: "sports" },
+]
 
 export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLoggedIn }) {
   const [state, dispatch] = useReducer(reducer, {
     ...temporalInfo,
     title: "",
     other_people: 0,
-    others: []
+    others: [],
+    description: ""
   })
+
+  useEffect(() => {
+    console.log(state)
+  }, [state])
 
   const navigate = useNavigate()
   const location = useLocation()
@@ -54,6 +74,10 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
     addEvent(state)
   }
 
+  function dropdownToDispatch(value) {
+    dispatch({type: "set_title", title: value})
+  }
+
   let others = []
   let currentPerson;
   for (let i=0; i<state.other_people; i++) {
@@ -63,8 +87,7 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
       currentPerson = { name: "" }
     }
     others.push(
-      <div className="field" key={`person_${i+1}`}>
-        <label htmlFor={`person_${i+1}`}>{`Nombre acompañante ${i+1}`}</label>
+      <div className="single-field" key={`person_${i+1}`}>
         <input
           id={`person_${i+1}`}
           type="text"
@@ -101,18 +124,16 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
   return (
     <>
       <div className="form-row">
-        <div className="field">
-          <label htmlFor="title">Título</label>
-          <input
-            id="title"
-            type="text"
-            placeholder="Título"
-            onChange={(e) => dispatch({type: "set_title", title: e.target.value})}
-            value={state.title}
+        <div className="single-field">
+          <Dropdown
+            placeholder={"Seleccione una actividad"}
+            setSelectedOption={dropdownToDispatch}
+            selectedOption={state.title}
+            options={EVENT_OPTIONS}
+            closeAfterSelect={true}
           />
         </div>
-        <div className="field">
-          <label htmlFor="other_people">Número de acompañantes</label>
+        <div className="single-field">
           <input
             id="other_people"
             type="number"
@@ -127,6 +148,14 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
       <div className="form-row">
         {others}
       </div>
+      <textarea
+        id="description"
+        className="textarea"
+        type="textarea"
+        placeholder="Descripción de la actividad"
+        onChange={(e) => dispatch({type: "set_description", description: e.target.value})}
+        value={state.description}
+      />
       <div className="footer">
         <button className="button" onClick={checkEvent}>
           <span className="material-icons button-icon">add</span>

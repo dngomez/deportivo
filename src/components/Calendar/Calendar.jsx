@@ -69,6 +69,7 @@ export default function Calendar() {
       allDay: info.allDay,
       user: user.user._id,
       name: `${user.user.first_name.split(' ')[0]} ${user.user.last_name.split(' ')[0]}`,
+      description: info.description,
       others: info.others
     }
 

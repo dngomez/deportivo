@@ -12,6 +12,7 @@ import Profile from './components/Profile/Profile'
 import Layout from './components/Layout'
 import Home from './components/Home'
 import Users from './components/Users/Users'
+import Contact from './components/Contact/Contact'
 import Login from './components/Login'
 import Register from './components/Register'
 import './index.scss'
@@ -29,7 +30,7 @@ ReactDOM.createRoot(document.getElementById('root')).render(
               <Route path="calendar/:viewType?/:date?" element={<Calendar />} />
               <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>} />
               <Route path="users" element={<RequireAuth><Users /></RequireAuth>} />
-              <Route path="link2" element={null} />
+              <Route path="contact" element={<Contact />} />
               <Route path="link3" element={null} />
               <Route path="link4" element={null} />
               <Route path="link5" element={null} />

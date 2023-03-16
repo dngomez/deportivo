@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import { getTimeFromStr } from '../../Helpers/CalendarEvent'
 
 const eventVariants = {
   open: {
@@ -34,7 +35,7 @@ export default function EventContent(eventInfo) {
         <b>{eventInfo.timeText}</b>
         <span className="inline-event">{eventInfo.event.title}</span>
         {eventInfo.view.type === "dayGridMonth" && <br />}
-        <motion.span className="inline-event"
+        <motion.span className="inline-event accent"
           variants={{
             open: {
               opacity: 0
@@ -71,10 +72,10 @@ export default function EventContent(eventInfo) {
             }
           }}
         >
-          <motion.span variants={eventVariants}>Responsable: {eventInfo.event.extendedProps.name}</motion.span>
+          <motion.span variants={eventVariants}>{eventInfo.event.extendedProps.name}</motion.span>
           {eventInfo.event.extendedProps.others?.map((el, idx) => {
             return (
-              <motion.span key={`eventPerson${idx}`} variants={eventVariants}>{`Invitado ${idx+1}: ${el.name}`}</motion.span>
+              <motion.span key={`eventPerson${idx}`} variants={eventVariants}>{el.name}</motion.span>
             )
           })}
         </motion.div>

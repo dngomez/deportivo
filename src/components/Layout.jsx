@@ -16,6 +16,7 @@ export default function Layout() {
     { name: "Calendario", to: "/calendar", icon: "calendar_month", permissionRequired: "None" },
     { name: "Perfil", to: "/profile", icon: "face", permissionRequired: "User" },
     { name: "Users", to: "/users", icon: "group", permissionRequired: "Staff" },
+    { name: "Contacto", to: "/contact", icon: "support_agent", permissionRequired: "None"},
     { name: "Ingresar", to: undefined, icon: "login", permissionRequired: "Unlogged", onClick: () => navigate("/login", {state: {from: location.pathname}}) },
     { name: "Cerrar Sesión", to: undefined, icon: "logout", permissionRequired: "User", onClick: () => logout() }
   ]
