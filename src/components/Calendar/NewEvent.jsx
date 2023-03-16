@@ -49,10 +49,6 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
     description: ""
   })
 
-  useEffect(() => {
-    console.log(state)
-  }, [state])
-
   const navigate = useNavigate()
   const location = useLocation()
 

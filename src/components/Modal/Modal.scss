@@ -139,3 +139,18 @@
     }
   }
 }
+
+
+@media only screen and (max-width: 951px) {
+  .modal {  
+    > .content {
+      > .body {
+        > .form-row {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 0;
+        }
+      }
+    }
+  }
+}
