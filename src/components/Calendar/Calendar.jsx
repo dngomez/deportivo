@@ -128,7 +128,7 @@ export default function Calendar() {
           right: 'dayGridMonth,timeGridWeek'
         }}
         locales={[ esLocale ]}
-        allDaySlot={true}
+        allDaySlot={false}
         viewDidMount={viewChange}
         locale={language}
         initialView='dayGridMonth'
