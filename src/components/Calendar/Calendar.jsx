@@ -8,6 +8,7 @@ import { ThemeContext } from '../Theme/ThemeProvider'
 import { AuthContext } from '../Auth/AuthProvider'
 import Modal from '../Modal/Modal'
 import NewEvent from './NewEvent'
+import EventDetails from './EventDetails'
 import EventContent from './EventContent'
 import { CalendarEvent } from "../../Helpers/CalendarEvent"
 import "./Calendar.scss"
@@ -18,7 +19,9 @@ export default function Calendar() {
   const { viewType, date } = useParams()
   const navigate = useNavigate()
   const [currentEvents, setCurrentEvents] = useState([])
-  const [isOpen, setIsOpen] = useState(false)
+  const [selectedEvent, setSelectedEvent] = useState(undefined)
+  const [newEventModalIsOpen, setNewEventModalIsOpen] = useState(false)
+  const [detailsModalIsOpen, setDetailsModalIsOpen] = useState(false)
   const [temporalInfo, setTemporalInfo] = useState({})
 
   const fullcalendar = useRef(null)
@@ -54,7 +57,7 @@ export default function Calendar() {
     }
 
     setTemporalInfo(selectInfo)
-    setIsOpen(true)
+    setNewEventModalIsOpen(true)
   }
 
   async function addEvent(info) {
@@ -81,7 +84,7 @@ export default function Calendar() {
     }
     info.view.calendar.unselect()
 
-    setIsOpen(false)
+    setNewEventModalIsOpen(false)
   }
 
   async function updateEvent({ event, oldEvent, revert }) {
@@ -101,16 +104,16 @@ export default function Calendar() {
     }
   }
 
-  async function handleEventClick(clickInfo) {
-    if (!isUserLoggedIn) return alert("Debes ingresar para modificar tus eventos")
-    if (confirm(`Estás seguro de que quieres eliminar el evento ${clickInfo.event.title}?`)) {
-      let data = await CalendarEvent.delete(user, clickInfo.event.extendedProps._id)
-      if ('error' in data) {
-        console.log(data)
-      } else {
-        clickInfo.event.remove()
-      }
+  async function removeEvent(event) {
+    let data = await CalendarEvent.delete(user, event.event.extendedProps._id)
+    if ('error' in data) {
+      alert("No se pudo eliminar el evento.\nPor favor cierra tu sesión, vuelve a ingresar e intenta nuevamente.\nSi el problema persiste puedes contactar a Diego Gómez [dngomez.e@gmail.com].")
     }
+  }
+
+  async function handleEventClick(clickInfo) {
+    setSelectedEvent(clickInfo.event)
+    setDetailsModalIsOpen(true)
   }
 
   function viewChange(event) {
@@ -150,11 +153,14 @@ export default function Calendar() {
         // eventsSet={setCurrentEvents} // called after events are initialized/added/changed/removed
         // Database can be updated when these events are triggered
         eventChange={updateEvent}
-        eventRemove={function(){}}
+        eventRemove={removeEvent}
       />
-      <Modal isOpen={isOpen}>
+      <Modal isOpen={newEventModalIsOpen}>
         <h2 className="title">Reservar horario</h2>
-        <NewEvent temporalInfo={temporalInfo} addEvent={addEvent} setIsOpen={setIsOpen} isUserLoggedIn={isUserLoggedIn} />
+        <NewEvent temporalInfo={temporalInfo} addEvent={addEvent} setIsOpen={setNewEventModalIsOpen} isUserLoggedIn={isUserLoggedIn} />
+      </Modal>
+      <Modal isOpen={detailsModalIsOpen}>
+        <EventDetails event={selectedEvent} setIsOpen={setDetailsModalIsOpen} user={user} />
       </Modal>
     </div>
   )

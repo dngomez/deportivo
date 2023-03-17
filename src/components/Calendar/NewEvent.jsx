@@ -30,12 +30,12 @@ function reducer(state, action) {
 }
 
 const EVENT_OPTIONS = [
-  { name: "Fútbol", icon: "sports_soccer" },
+  { name: "Baby Fútbol", icon: "sports_soccer" },
   { name: "Baloncesto", icon: "sports_basketball" },
   { name: "Patines", icon: "roller_skating" },
   { name: "Tenis", icon: "sports_tennis" },
-  { name: "Baile", icon: "sports_gymnastics" },
-  { name: "Béisbol", icon: "sports_baseball" },
+  { name: "Baile o Zumba", icon: "sports_gymnastics" },
+  { name: "Acondicionamiento Físico", icon: "fitness_center" },
   { name: "Voleibol", icon: "sports_volleyball" },
   { name: "Otro", icon: "sports" },
 ]
@@ -83,7 +83,8 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
       currentPerson = { name: "" }
     }
     others.push(
-      <div className="single-field" key={`person_${i+1}`}>
+      <div className="field" key={`person_${i+1}`}>
+        <label htmlFor={`person_${i+1}`}>{`Nombre y apellido invitado ${i+1}`}</label>
         <input
           id={`person_${i+1}`}
           type="text"
@@ -120,7 +121,8 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
   return (
     <>
       <div className="form-row">
-        <div className="single-field">
+        <div className="field">
+        <label htmlFor="title">Actividad</label>
           <Dropdown
             placeholder={"Seleccione una actividad"}
             setSelectedOption={dropdownToDispatch}
@@ -129,7 +131,8 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
             closeAfterSelect={true}
           />
         </div>
-        <div className="single-field">
+        <div className="field">
+          <label htmlFor="other_people">Número de acompañantes</label>
           <input
             id="other_people"
             type="number"
@@ -144,6 +147,7 @@ export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLogg
       <div className="form-row">
         {others}
       </div>
+      <label htmlFor="other_people">Descripción</label>
       <textarea
         id="description"
         className="textarea"

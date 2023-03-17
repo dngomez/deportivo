@@ -57,8 +57,10 @@
       }
 
       .textarea {
+        font-family: var(--font-family);
         max-width: calc(100% - 22px);
         min-width: calc(100% - 22px);
+        margin-top: 5px;
         background-color: var(--input-bg);
         border-radius: 13px;
         border: 1px solid;
