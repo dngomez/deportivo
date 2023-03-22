@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { Link } from "react-router-dom"
 import { ImgHandler } from "../../Helpers/ImgHandler"
 import { motion, AnimatePresence } from "framer-motion"
 import AnimatedCharacters from "../Logo/AnimatedText"
@@ -64,6 +65,7 @@ export default function Gallery() {
   return (
     <div className="gallery">
       {showText}
+      <Link to="/calendar/day" className="button">Calendario Hoy</Link>
       <AnimatePresence initial={false} custom={direction}>
         <motion.img
           key={page}

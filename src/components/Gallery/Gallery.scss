@@ -9,6 +9,12 @@
     display: block;
   }
 
+  > .button {
+    display: inline-block;
+    margin-top: 20px;
+    text-decoration: none;
+  }
+
   .next,
   .prev {
     top: calc(50% - 15px);
