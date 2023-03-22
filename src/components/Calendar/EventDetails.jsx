@@ -14,19 +14,21 @@ export default function EventDetails({ event, setIsOpen, user }) {
   })
 
   let delButton = null
-  if (user.user._id === event.extendedProps.user) {
-    delButton = (
-      <button
-        className="button dismiss"
-        onClick={() => {
-          setIsOpen(false)
-          event.remove()
-        }}
-      >
-        <span className="material-icons button-icon">delete</span>
-        Eliminar
-      </button>
-    )
+  if (Boolean(user)) {
+    if (user.user._id === event.extendedProps.user) {
+      delButton = (
+        <button
+          className="button dismiss"
+          onClick={() => {
+            setIsOpen(false)
+            event.remove()
+          }}
+        >
+          <span className="material-icons button-icon">delete</span>
+          Eliminar
+        </button>
+      )
+    }
   }
 
   return (
