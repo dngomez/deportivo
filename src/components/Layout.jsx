@@ -14,6 +14,7 @@ export default function Layout() {
   let links = [
     { name: "Inicio", to: "/", icon: "home", permissionRequired: "None"},
     { name: "Calendario", to: "/calendar", icon: "calendar_month", permissionRequired: "None" },
+    { name: "Deportes", to: "/sports", icon: "sports", permissionRequired: "None" },
     { name: "Perfil", to: "/profile", icon: "face", permissionRequired: "User" },
     { name: "Users", to: "/users", icon: "group", permissionRequired: "Staff" },
     { name: "Contacto", to: "/contact", icon: "support_agent", permissionRequired: "None"},

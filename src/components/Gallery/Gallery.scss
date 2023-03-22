@@ -1,0 +1,55 @@
+.gallery {
+  display: block;
+  height: 100%;
+  position: relative;
+  color: var(--text-color);
+  text-align: center;
+  overflow: hidden;
+  > span {
+    display: block;
+  }
+
+  .next,
+  .prev {
+    top: calc(50% - 15px);
+    position: absolute;
+    background: linear-gradient(transparent, var(--accent-faded));
+    color: var(--text-color);
+    border-radius: 30px;
+    padding: 10px;
+    border: 1px solid var(--accent-faded);
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 20px;
+    z-index: 2;
+    transition: color 0.5s, border-color 0.5s;
+
+    &:hover {
+      border: 1px solid var(--accent);
+      color: var(--accent);
+    }
+  }
+
+  .next {
+    right: 10%;
+  }
+
+  .prev {
+    left: 10%;
+    transform: scale(-1);
+  }
+
+  img {
+    top: 50%;
+    position: absolute;
+    max-height: 40vh;
+    max-width: 100vw;
+    left: 50vw;
+  }
+}

@@ -1,5 +1,5 @@
 export const CalendarEvent = {
-  async getAll(user) {
+  async getAll() {
     try {
       const res = await fetch("/api/event/all", {
         headers: {
