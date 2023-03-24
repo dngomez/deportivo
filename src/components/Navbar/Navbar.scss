@@ -1,5 +1,7 @@
 .navbar {
   flex: 0 1 auto;
+  position: relative;
+  z-index: 10;
   display: flex;
   justify-content: space-around;
   font-family: var(--font-family);

@@ -2,6 +2,7 @@
 
 .dark {
   --bg-color: rgb(26, 26, 46);
+  --bg-details: rgb(18, 18, 43);
   --navbar-bg-color: rgba(15, 52, 96, 1);
   --navbar-toggle-color: rgba(15, 52, 96, 0.92);
   --bg-button: rgba(13, 69, 69, 0.3);
@@ -27,6 +28,7 @@
 
 .light {
   --bg-color: rgba(235, 235, 235, 1);
+  --bg-details: rgb(250, 250, 250);
   --navbar-bg-color: rgb(220, 220, 220);
   --navbar-toggle-color: rgba(220, 220, 220, 0.92);
   --bg-button: rgba(191, 255, 255, 0.3);
