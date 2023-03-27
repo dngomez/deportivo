@@ -5,7 +5,6 @@ import MoveButton from "../SVG/MoveButton"
 import { SportHandler } from "../../Helpers/SportHandler"
 import { UserHandler } from "../../Helpers/UserHandler"
 import { Buffer } from 'buffer'
-import personImg from "../../../public/person-4.svg"
 import "./Sports.scss"
 
 const sportDetails = {
