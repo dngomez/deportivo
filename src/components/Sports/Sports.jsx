@@ -4,6 +4,8 @@ import { SportButton } from "../SVG/SportButton"
 import MoveButton from "../SVG/MoveButton"
 import { SportHandler } from "../../Helpers/SportHandler"
 import { UserHandler } from "../../Helpers/UserHandler"
+import { Buffer } from 'buffer'
+import personImg from "../../../public/person-4.svg"
 import "./Sports.scss"
 
 const sportDetails = {
@@ -34,6 +36,11 @@ const emptySpace = {
 const hiddenText = {
   open: { opacity: 1, transition: { delay: 1.5 } },
   closed: { opacity: 0 }
+}
+
+const growComponent = {
+  open: { scale: 1, transition: { delay: 2.2 } },
+  closed: { scale: 0 }
 }
 
 export default function Sports() {
@@ -81,6 +88,15 @@ export default function Sports() {
     })
   }
 
+  let coordImg = null
+  if (Boolean(coordinator) && "image" in coordinator) {
+    coordImg = <img className="img" src={`data:${coordinator?.image.contentType};base64,${Buffer.from(coordinator?.image.data.data.reduce((data, byte) => data + String.fromCharCode(byte), ''), 'ascii').toString('base64')}`} />
+  } else {
+    coordImg = (
+      <svg className="img" style={{fill: "var(--accent)"}} viewBox="0 0 1024 1024"><path d="M512 597.994667q108.010667 0 225.002667 46.997333t116.992 123.008l0 85.994667-684.010667 0 0-85.994667q0-76.010667 116.992-123.008t225.002667-46.997333zM512 512q-69.994667 0-120-50.005333t-50.005333-120 50.005333-121.002667 120-51.008 120 51.008 50.005333 121.002667-50.005333 120-120 50.005333z"/></svg>
+    )
+  }
+
   return (
     <>
       <div className="sports-grid">
@@ -100,15 +116,19 @@ export default function Sports() {
         <div className="details-container">
           <motion.div variants={emptySpace} className="empty-space" />
           <motion.div initial="closed" animate={(openSport === "") ? "closed" : "open"} variants={hiddenText} className="title">
-            <h2>{selectedSport?.spName}</h2>
-            <span>Encargado de la rama:</span>
-            <span>{coordinator?.name}</span>
-            <a href={`mailto:${coordinator?.email}`}>{coordinator?.email}</a>
-            <span
-              className="button material-icons close-btn"
-              onClick={() => setOpenSport("")}
-            >close</span>
+            <h2 className="sport-title">{selectedSport?.spName}</h2>
+            <div className="text"></div>
+            <motion.div initial="closed" animate={(openSport === "") ? "closed" : "open"} variants={growComponent} className="coordinator">
+              <div className="image">{coordImg}</div>
+              <span className="coord">Encargado de la rama:</span>
+              <span className="coordName">{coordinator?.name}</span>
+              <a className="email" href={`mailto:${coordinator?.email}`}>{coordinator?.email}</a>
+            </motion.div>
           </motion.div>
+          <span
+            className="button material-icons close-btn"
+            onClick={() => setOpenSport("")}
+          >close</span>
           <motion.div initial="closed" animate={(openSport === "") ? "closed" : "open"} variants={hiddenText} className="body">
             {descriptionPars}
           </motion.div>
