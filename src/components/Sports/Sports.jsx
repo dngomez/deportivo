@@ -3,6 +3,7 @@ import { motion } from "framer-motion"
 import { SportButton } from "../SVG/SportButton"
 import MoveButton from "../SVG/MoveButton"
 import { SportHandler } from "../../Helpers/SportHandler"
+import { UserHandler } from "../../Helpers/UserHandler"
 import "./Sports.scss"
 
 const sportDetails = {
@@ -38,11 +39,25 @@ const hiddenText = {
 export default function Sports() {
   const [openSport, setOpenSport] = useState("")
   const [sports, setSports] = useState([])
+  const [coordinator, setCoordinator] = useState(undefined)
 
   useEffect(() => {
     SportHandler.getAll()
     .then(res => setSports(res.results))
   }, [])
+
+  useEffect(() => {
+    if (Boolean(openSport)) {
+      if ("userId" in sports.filter(s => s.name === openSport)[0].coordinator) {
+        UserHandler.getCoordinator(sports.filter(s => s.name === openSport)[0].coordinator.userId)
+        .then(res => setCoordinator(res.result))
+      } else {
+        setCoordinator(sports.filter(s => s.name === openSport)[0].coordinator)
+      }
+    } else {
+      setCoordinator(undefined)
+    }
+  }, [openSport])
 
   let sportButtons = []
   sports.map((sport, index) => {
@@ -54,6 +69,17 @@ export default function Sports() {
   })
 
   let selectedSport = sports.filter(s => s.name === openSport)[0]
+  let descriptionPars = []
+  if (selectedSport?.description) {
+    descriptionPars.push(
+      <h3 key="descriptionTitle">Descripción:</h3>
+    )
+    selectedSport?.description.split('\n').map((par, idx) => {
+      descriptionPars.push(
+        <p className="description-par" key={`par_${idx}`}>{par}</p>
+      )
+    })
+  }
 
   return (
     <>
@@ -75,14 +101,16 @@ export default function Sports() {
           <motion.div variants={emptySpace} className="empty-space" />
           <motion.div initial="closed" animate={(openSport === "") ? "closed" : "open"} variants={hiddenText} className="title">
             <h2>{selectedSport?.spName}</h2>
-            <h4>{selectedSport?.description}</h4>
+            <span>Encargado de la rama:</span>
+            <span>{coordinator?.name}</span>
+            <a href={`mailto:${coordinator?.email}`}>{coordinator?.email}</a>
             <span
               className="button material-icons close-btn"
               onClick={() => setOpenSport("")}
             >close</span>
           </motion.div>
           <motion.div initial="closed" animate={(openSport === "") ? "closed" : "open"} variants={hiddenText} className="body">
-            <span>Coordinador: <span>{selectedSport?.coordinator}</span></span>
+            {descriptionPars}
           </motion.div>
         </div>
       </motion.div>

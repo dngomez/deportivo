@@ -52,13 +52,15 @@
       grid-area: title;
       padding-left: 20px;
 
+      > h2 {
+        margin-top: 0;
+      }
+
       > .close-btn {
         position: absolute;
         right: 10px;
         top: 10px;
       }
-      // > h2 {
-      // }
     }
 
     > .body {

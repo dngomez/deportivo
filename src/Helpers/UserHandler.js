@@ -14,6 +14,20 @@ export const UserHandler = {
     }
   },
 
+  async getCoordinator(id) {
+    try {
+      const res = await fetch(`/api/user/coordinator?_id=${id}`, {
+        headers: {
+          'Accept': '*/*',
+          'Content-Type': 'application/json'
+        }
+      })
+      return await res.json()
+    } catch (error) {
+      return error
+    }
+  },
+
   async create(user, event) {
     try {
       const res = await fetch("/api/user/create", {
