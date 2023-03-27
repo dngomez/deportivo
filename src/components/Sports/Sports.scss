@@ -32,6 +32,7 @@
     height: calc(100% - 107px);
     z-index: 2;
     top: 87px;
+    overflow: hidden;
     display: grid;
     grid-template:
       "empty title" 25%
