@@ -14,6 +14,13 @@ function validateEmail(email) {
   ))
 }
 
+function validatePhone(phone) {
+  return Boolean(String(phone)
+  .match(
+    /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/
+  ))
+}
+
 function validatePassword(password) {
   return Boolean(String(password)
   .match(
@@ -34,6 +41,9 @@ function reducer(state, action) {
 
     case "set_subscribed":
       return {...state, subscribed: action.subscribed}
+
+    case "set_phone":
+      return {...state, phone: action.phone, phone_warning: !validatePhone(action.phone)}
 
     case "set_email":
       return {...state, email: action.email, email_warning: !validateEmail(action.email)}
@@ -60,6 +70,8 @@ export default function Register() {
     birthday: "",
     birthday_warning: false,
     subscribed: "",
+    phone: "",
+    phone_warning: false,
     email: "",
     email_warning: false,
     password: "",
@@ -81,9 +93,11 @@ export default function Register() {
       !Boolean(state.birthday) ||
       !Boolean(state.password) ||
       !Boolean(state.password_confirm) ||
+      !Boolean(state.phone) ||
       (state.subscribed === "") ||
       state.first_name_warning ||
       state.last_name_warning ||
+      state.phone_warning ||
       state.email_warning ||
       state.password_warning ||
       state.password_confirm_warning
@@ -165,11 +179,20 @@ export default function Register() {
             onChange={(e) => dispatch({type: "set_subscribed", subscribed: false})}
           />
         </div>
+        <div className={(state.phone_warning) ? "field warning" : "field"}>
+          <span className="material-icons button-icon">phone</span>
+          <input
+            type="text"
+            placeholder="Teléfono, ejemplo: +56 9 1111 1111"
+            value={state.phone}
+            onChange={(e) => dispatch({type: "set_phone", phone: e.target.value})}
+          />
+        </div>
         <div className={(state.email_warning) ? "field warning" : "field"}>
           <span className="material-icons button-icon">mail</span>
           <input
             type="mail"
-            placeholder="Email"
+            placeholder="Correo electrónico"
             value={state.email}
             onChange={(e) => dispatch({type: "set_email", email: e.target.value})}
           />
