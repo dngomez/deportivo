@@ -49,9 +49,8 @@ export const Authentication = {
         let data = await res.json()
         localStorage.setItem('user', JSON.stringify(data))
         return [data, undefined]
-      } else {
-        return [null, res.statusText]
       }
+      return [null, res.statusText]
     } catch (error) {
       if (error instanceof Error) {
         return [null, error.toString()]
@@ -59,6 +58,43 @@ export const Authentication = {
         return [null, "Unexpected error"]
       }
     }
+  },
+
+  async passwordRecovery(email) {
+    const res = await fetch(`/api/user/password_recovery`, {
+      method: 'POST',
+      body: JSON.stringify({email: email}),
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (res.status === 200) {
+      let data = await res.json()
+      return data
+    }
+
+    throw new Error('Something happened')
+  },
+
+
+  async updatePassword(uuid, password) {
+    const res = await fetch(`/api/user/update_password`, {
+      method: 'POST',
+      body: JSON.stringify({uuid: uuid, password: password}),
+      headers: {
+        'Accept': '*/*',
+        'Content-Type': 'application/json'
+      }
+    })
+
+    if (res.status === 200) {
+      let data = await res.json()
+      return data
+    }
+
+    throw new Error('Something happened')
   },
 
   logout() {

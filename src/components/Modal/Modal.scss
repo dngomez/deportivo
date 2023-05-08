@@ -1,6 +1,7 @@
 .modal {
   position: fixed;
-  z-index: 99;
+  z-index: 100;
+  color: var(--text-color);
   top: 0;
   left: 0;
   width: 100vw;
@@ -48,6 +49,11 @@
         display: block;
         margin: 0;
         padding: 5px 0;
+      }
+
+      > .text {
+        text-align: center;
+        color: var(--text-color);
       }
 
       > .form-row {

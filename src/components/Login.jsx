@@ -68,6 +68,9 @@ export default function Login() {
         <span className="text-link">
           Puedes registrarte haciendo click <a onClick={() => navigate("/register")}>aquí</a>
         </span>
+        <span className="text-link">
+          <a onClick={() => navigate("/password_recovery")}>Recuperar contraseña</a>
+        </span>
       </motion.div>
     </div>
   );

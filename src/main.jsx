@@ -19,6 +19,8 @@ import Register from './components/Register'
 import './main.scss'
 import 'material-icons/iconfont/material-icons.css';
 import RequireAuth from './components/Auth/RequireAuth'
+import { PasswordReset } from './components/Users/PasswordReset'
+import { PasswordRecovery } from './components/Users/PasswordRecovery'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
@@ -39,6 +41,8 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             </Route>
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
+            <Route path="/password_recovery" element={<PasswordRecovery />} />
+            <Route path="/password_reset/:uuid" element={<PasswordReset />} />
           </Routes>
         </ThemeProvider>
       </AuthProvider>

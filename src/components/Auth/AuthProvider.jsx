@@ -19,6 +19,24 @@ export default function AuthProvider ({ children }) {
     return Promise.resolve(true)
   }
 
+  async function updatePassword(uuid, password) {
+    try {
+      await Authentication.updatePassword(uuid, password)
+      return Promise.resolve([true, null])
+    } catch (error) {
+      return Promise.resolve([false, error])
+    }
+  }
+
+  async function passwordRecovery(email) {
+    try {
+      await Authentication.passwordRecovery(email)
+      return Promise.resolve([true, null])
+    } catch (error) {
+      return Promise.resolve([false, error])
+    }
+  }
+
   async function logout() {
     Authentication.logout()
     setUser(null)
@@ -59,6 +77,8 @@ export default function AuthProvider ({ children }) {
     logout,
     isTokenValid,
     getImage,
+    updatePassword,
+    passwordRecovery,
     isAllowed,
     isUserLoggedIn
   }
