@@ -5,8 +5,8 @@
   }
 
   > .new {
-    display: block;
-    float: left;
+    display: inline-block;
+    vertical-align: top;
     width: 30%;
     margin: 10px 1.56%;
     max-height: 300px;
