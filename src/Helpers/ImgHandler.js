@@ -1,7 +1,7 @@
 export const ImgHandler = {
   async getAll() {
     try {
-      const res = await fetch("http://back:5000/img/all", {
+      const res = await fetch("/deportivo/api/img/all", {
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json'

@@ -11,7 +11,7 @@ export function News() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    fetch("http://back:5000/new/all", {
+    fetch("/deportivo/api/new/all", {
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json'
