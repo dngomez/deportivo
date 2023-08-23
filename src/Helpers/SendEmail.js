@@ -1,8 +1,8 @@
 export async function sendEmail(name, email, subject, content) {
   try {
-    const res = await fetch("/api/contact", {
+    const res = await fetch("http://back:5000/contact", {
       method: "POST",
-      body: JSON.stringify({name, email, subject, content}),
+      body: JSON.stringify({ name, email, subject, content }),
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json'

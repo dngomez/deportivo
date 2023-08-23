@@ -7,18 +7,18 @@ import "./News.scss"
 
 export function News() {
   const [news, setNews] = useState([])
-  const [newDetails, setNewDetails] = useState({ title: "", googleId: "", body: ""})
+  const [newDetails, setNewDetails] = useState({ title: "", googleId: "", body: "" })
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    fetch("/api/new/all", {
+    fetch("http://back:5000/new/all", {
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json'
       }
     })
-    .then(res => res.json())
-    .then(data => setNews(data.results))
+      .then(res => res.json())
+      .then(data => setNews(data.results))
   }, [])
 
   let newList = []

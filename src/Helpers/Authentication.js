@@ -36,9 +36,9 @@ export const Authentication = {
 
   async login(email, password) {
     try {
-      const res = await fetch(`/api/user/login`, {
+      const res = await fetch(`http://back:5000/user/login`, {
         method: 'POST',
-        body: JSON.stringify({user: {email: email, password: password}}),
+        body: JSON.stringify({ user: { email: email, password: password } }),
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json'
@@ -61,9 +61,9 @@ export const Authentication = {
   },
 
   async passwordRecovery(email) {
-    const res = await fetch(`/api/user/password_recovery`, {
+    const res = await fetch(`http://back:5000/user/password_recovery`, {
       method: 'POST',
-      body: JSON.stringify({email: email}),
+      body: JSON.stringify({ email: email }),
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json'
@@ -80,9 +80,9 @@ export const Authentication = {
 
 
   async updatePassword(uuid, password) {
-    const res = await fetch(`/api/user/update_password`, {
+    const res = await fetch(`http://back:5000/user/update_password`, {
       method: 'POST',
-      body: JSON.stringify({uuid: uuid, password: password}),
+      body: JSON.stringify({ uuid: uuid, password: password }),
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json'
@@ -107,7 +107,7 @@ export const Authentication = {
 
   async update(user, changes) {
     try {
-      const res = await fetch(`/api/user/update?_id=${user.user._id}`, {
+      const res = await fetch(`http://back:5000/user/update?_id=${user.user._id}`, {
         method: "PATCH",
         body: JSON.stringify(changes),
         headers: {
@@ -129,7 +129,7 @@ export const Authentication = {
 
   async getImage(user) {
     try {
-      const res = await fetch(`/api/user/image?_id=${user.user._id}`, {
+      const res = await fetch(`http://back:5000/user/image?_id=${user.user._id}`, {
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json',
@@ -149,7 +149,7 @@ export const Authentication = {
 
   async create(user) {
     try {
-      const res = await fetch('/api/user/create', {
+      const res = await fetch('http://back:5000/user/create', {
         method: "POST",
         body: JSON.stringify(user),
         headers: {
