@@ -1,7 +1,7 @@
 export const CalendarEvent = {
   async getAll() {
     try {
-      const res = await fetch("/deportivo/api/event/all", {
+      const res = await fetch("/api/event/all", {
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json'
@@ -15,7 +15,7 @@ export const CalendarEvent = {
 
   async create(user, event) {
     try {
-      const res = await fetch("/deportivo/api/event/create", {
+      const res = await fetch("/api/event/create", {
         method: "POST",
         body: JSON.stringify(event),
         headers: {
@@ -32,7 +32,7 @@ export const CalendarEvent = {
 
   async update(user, eventId, changes) {
     try {
-      const res = await fetch(`/deportivo/api/event/update?_id=${eventId}`, {
+      const res = await fetch(`/api/event/update?_id=${eventId}`, {
         method: "PATCH",
         body: JSON.stringify(changes),
         headers: {
@@ -49,7 +49,7 @@ export const CalendarEvent = {
 
   async delete(user, eventId) {
     try {
-      const res = await fetch(`/deportivo/api/event/delete?_id=${eventId}`, {
+      const res = await fetch(`/api/event/delete?_id=${eventId}`, {
         method: "DELETE",
         headers: {
           'Accept': '*/*',

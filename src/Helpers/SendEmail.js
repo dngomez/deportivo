@@ -1,6 +1,6 @@
 export async function sendEmail(name, email, subject, content) {
   try {
-    const res = await fetch("/deportivo/api/contact", {
+    const res = await fetch("/api/contact", {
       method: "POST",
       body: JSON.stringify({ name, email, subject, content }),
       headers: {
