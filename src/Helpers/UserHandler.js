@@ -1,7 +1,7 @@
 export const UserHandler = {
   async getAll(user) {
     try {
-      const res = await fetch("/api/user/all", {
+      const res = await fetch("./api/user/all", {
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ export const UserHandler = {
 
   async getCoordinator(id) {
     try {
-      const res = await fetch(`/api/user/coordinator?_id=${id}`, {
+      const res = await fetch(`./api/user/coordinator?_id=${id}`, {
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json'
@@ -30,7 +30,7 @@ export const UserHandler = {
 
   async create(user, event) {
     try {
-      const res = await fetch("/api/user/create", {
+      const res = await fetch("./api/user/create", {
         method: "POST",
         body: JSON.stringify(event),
         headers: {
@@ -47,7 +47,7 @@ export const UserHandler = {
 
   async update(user, eventId, changes) {
     try {
-      const res = await fetch(`/api/user/update?_id=${eventId}`, {
+      const res = await fetch(`./api/user/update?_id=${eventId}`, {
         method: "PATCH",
         body: JSON.stringify(changes),
         headers: {
@@ -64,7 +64,7 @@ export const UserHandler = {
 
   async delete(user, eventId) {
     try {
-      const res = await fetch(`/api/user/delete?_id=${eventId}`, {
+      const res = await fetch(`./api/user/delete?_id=${eventId}`, {
         method: "DELETE",
         headers: {
           'Accept': '*/*',
