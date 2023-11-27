@@ -37,11 +37,11 @@ export default function EventDetails({ event, setIsOpen, user }) {
       <div className="body">
         <div className="row">
           <span className="left">Hora de inicio</span>
-          <span className="right">{getTimeFromStr(event.start.toISOString())}</span>
+          <span className="right">{event.start.toLocaleTimeString()}</span>
         </div>
         <div className="row">
           <span className="left">Hora de término</span>
-          <span className="right">{getTimeFromStr(event.end.toISOString())}</span>
+          <span className="right">{event.end.toLocaleTimeString()}</span>
         </div>
         <div className="row">
           <span className="left">Responsable</span>
