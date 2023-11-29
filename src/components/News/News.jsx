@@ -11,7 +11,7 @@ export function News() {
   const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    fetch("./api/new/all", {
+    fetch("/api/new/all", {
       headers: {
         'Accept': '*/*',
         'Content-Type': 'application/json'

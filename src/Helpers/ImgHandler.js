@@ -1,7 +1,7 @@
 export const ImgHandler = {
   async getAll() {
     try {
-      const res = await fetch("./api/img/all", {
+      const res = await fetch("/api/img/all", {
         headers: {
           'Accept': '*/*',
           'Content-Type': 'application/json'
