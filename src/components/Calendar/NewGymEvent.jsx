@@ -30,14 +30,8 @@ function reducer(state, action) {
 }
 
 const EVENT_OPTIONS = [
-  { name: "Baby Fútbol", icon: "sports_soccer" },
-  { name: "Baloncesto", icon: "sports_basketball" },
-  { name: "Patines", icon: "roller_skating" },
-  { name: "Tenis", icon: "sports_tennis" },
-  { name: "Baile o Zumba", icon: "sports_gymnastics" },
-  { name: "Acondicionamiento Físico", icon: "fitness_center" },
-  { name: "Voleibol", icon: "sports_volleyball" },
-  { name: "Otro", icon: "sports" },
+  { name: "Gimnasio Tololo", icon: "fitness_center" },
+  { name: "Gimnasio Pachón", icon: "fitness_center" },
 ]
 
 export default function NewEvent({ temporalInfo, addEvent, setIsOpen, isUserLoggedIn }) {

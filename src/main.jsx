@@ -8,6 +8,7 @@ import {
 import ThemeProvider from './components/Theme/ThemeProvider'
 import AuthProvider from './components/Auth/AuthProvider'
 import Calendar from './components/Calendar/Calendar'
+import GymCalendar from './components/Calendar/GymCalendar'
 import Sports from './components/Sports/Sports'
 import Profile from './components/Profile/Profile'
 import Layout from './components/Layout'
@@ -31,11 +32,11 @@ ReactDOM.createRoot(document.getElementById('root')).render(
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="calendar/:viewType?/:date?" element={<Calendar />} />
+              <Route path="gym_calendar/:viewType?/:date?" element={<GymCalendar />} />
               <Route path="sports" element={<Sports />} />
               <Route path="profile" element={<RequireAuth><Profile /></RequireAuth>} />
               <Route path="users" element={<RequireAuth><Users /></RequireAuth>} />
               <Route path="contact" element={<Contact />} />
-              <Route path="link3" element={null} />
               <Route path="link4" element={null} />
               <Route path="link5" element={null} />
             </Route>

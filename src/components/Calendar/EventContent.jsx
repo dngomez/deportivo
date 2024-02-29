@@ -1,5 +1,4 @@
 import { motion } from 'framer-motion'
-import { getTimeFromStr } from '../../Helpers/CalendarEvent'
 
 const eventVariants = {
   open: {
