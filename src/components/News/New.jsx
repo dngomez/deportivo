@@ -7,7 +7,7 @@ export function New({ info, setNewDetails, setIsOpen }) {
         setIsOpen(true)
       }}
     >
-      <img src={`https://drive.google.com/uc?export=view&id=${info.googleId}`} />
+      <img src={`https://lh3.google.com/u/0/d/${info.googleId}`} />
       <span className="title">{info.title}</span>
     </div>
   )

@@ -4,7 +4,7 @@ import remarkGfm from 'remark-gfm'
 export function NewDetails({ info }) {
   return (
     <div className="modal-new">
-      <img src={`https://drive.google.com/uc?export=view&id=${info.googleId}`} />
+      <img src={`https://lh3.google.com/u/0/d/${info.googleId}`} />
       <span className="title">{info.title}</span>
       <span className="date">{(new Date(info.date)).toLocaleDateString()}</span>
       <Markdown remarkPlugins={[remarkGfm]}>{info.body}</Markdown>
