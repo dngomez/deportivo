@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react"
-import { Link } from "react-router-dom"
 import { New } from "./New"
 import { NewDetails } from "./NewDetails"
 import Modal from "../Modal/Modal"
