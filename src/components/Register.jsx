@@ -152,6 +152,7 @@ export default function Register() {
         {state.last_name_warning && <p className="text-warning">Tu apellido no puede estar vacío</p>}
         <div className="field">
           <span className="material-icons button-icon">today</span>
+          <span className="placeholder">Fecha de nacimiento</span>
           <input
             type="date"
             placeholder="Fecha de nacimiento"

@@ -68,6 +68,12 @@
         transition: border-color 0.5s;
       }
 
+      .placeholder {
+        font-size: 0.8rem;
+        text-wrap: nowrap;
+        align-self: center;
+      }
+
       label {
         padding: 7px 5px;
       }
